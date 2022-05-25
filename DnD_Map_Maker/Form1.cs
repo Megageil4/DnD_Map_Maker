@@ -13,7 +13,7 @@ namespace Test
         private bool placing;
         private Point lastLocation; // Last location of the mouse
         private bool clear = false;
-        private int size = 50; // Size of the squares
+        private int size = 60; // Size of the squares
 
 
         private void button1_MouseDown(object sender, MouseEventArgs e) // When the mouse is pressed down on button1
@@ -49,17 +49,26 @@ namespace Test
                 e.Graphics.Clear(Color.White);
             }
 
-            int mult = this.Width / size; // ka vergessen was genau ich mir gedacht hab
-            for (int i = 0; i < this.Width; i++)
+            // draw a grid full of hexagons
+            for (int y = 0; y < Height / (size / 2); y++)
             {
-                CreateGraphics().DrawLine(pen, mult * i, 0, mult * i, Height);
-             // new Graphi  what to do ^  ^ wich pen      ^ corrdinates
-            }
+                for (int x = 0; x < Width / (size / 2); x++)
+                {
+                    int xpos = x * size;
+                    int ypos = y * size;
 
-            mult = this.Width / size;
-            for (int i = 0; i < this.Height; i++)
-            {
-                CreateGraphics().DrawLine(pen, 0, mult * i,Width, mult * i);
+                    xpos += (size / 2) * (y % 2);
+                    ypos -= (size / 4 + 1) * y;
+
+                    e.Graphics.DrawPolygon(pen, new Point[] {
+                        new Point(xpos + size / 2, ypos),
+                        new Point(xpos + size, ypos + size / 4),
+                        new Point(xpos + size, ypos + size / 4 * 3),
+                        new Point(xpos + size / 2, ypos + size),
+                        new Point(xpos,ypos + size / 4 * 3),
+                        new Point(xpos, ypos + size / 4)
+                    });
+                }
             }
         }
 
@@ -74,12 +83,12 @@ namespace Test
         {
             if (e.Button == MouseButtons.Left)
             {
-                DrawBlock(Color.Black, e);
+                DrawHexagon(Color.Black, e);
                 // Draw block at e(=mouse pos)
             }
             else if (true)
             {
-                DrawBlock(Color.LightGray, e);
+                DrawHexagon(Color.LightGray, e);
             }
             placing = true;
         }
@@ -96,11 +105,11 @@ namespace Test
         {
             if (placing && e.Button == MouseButtons.Left)
             {
-                DrawBlock(Color.Black,e);
+                DrawHexagon(Color.Black,e);
             }
             else if (placing && e.Button == MouseButtons.Right)
             {
-                DrawBlock(Color.LightGray,e);
+                DrawHexagon(Color.LightGray,e);
             }
         }
 
@@ -112,9 +121,45 @@ namespace Test
             CreateGraphics().DrawRectangle(pen, x, y, size, size);
         }
 
+        private void DrawHexagon(Color color, MouseEventArgs e)
+        {
+            Pen pen = new Pen(color, 3);
+
+            int x = (int)RoundF(e.X,size);
+            //int y = (int)RoundF(e.Y, (size / 4) * 3);
+            //int offset = 
+            //if (y / size % 2 != 0)
+            //{
+            //    if (e.X * 1.0 / size - (int)(e.X / size) > 0.5)
+            //    {
+            //        x += size / 2;
+            //    }
+            //    else
+            //    {
+            //        x -= size / 2;
+            //    }
+            //}
+
+            float yF = e.Y * 1.0F / size * (size / 4.0F) * 3.0F;
+
+            int y = (int)yF;
+
+            y = (int)RoundF(y, (size / 4) * 3);
+
+
+            CreateGraphics().DrawPolygon(pen, new Point[] {
+                    new Point(x + size / 2, y),
+                    new Point(x + size, y + size / 4),
+                    new Point(x + size, y + size / 4 * 3),
+                    new Point(x + size / 2, y + size),
+                    new Point(x,y + size / 4 * 3),
+                    new Point(x,y + size / 4)
+            });
+        }
+
         private float RoundF(int input, int roundTo)
         {
-            return MathF.Round(input / roundTo) * (roundTo); // Callculates next value dividable by rountTo
+            return MathF.Round(input / roundTo,MidpointRounding.ToZero) * (roundTo); // Callculates next value dividable by rountTo
         }
     }
 }
