@@ -140,11 +140,11 @@ namespace Test
             //    }
             //}
 
-            float yF = e.Y * 1.0F / size * (size / 4.0F) * 3.0F;
+            //float yF = e.Y * 1.0F / size * (size / 4.0F) * 3.0F;
 
-            int y = (int)yF;
+            int y = (int)(e.Y + 5);
 
-            y = (int)RoundF(y, (size / 4) * 3);
+            y = (int)RoundF(y, (size / 4) * (float)2.935);
 
 
             CreateGraphics().DrawPolygon(pen, new Point[] {
@@ -157,7 +157,7 @@ namespace Test
             });
         }
 
-        private float RoundF(int input, int roundTo)
+        private float RoundF(int input, float roundTo)
         {
             return MathF.Round(input / roundTo, MidpointRounding.ToZero) * (roundTo); // Callculates next value dividable by rountTo
         }
