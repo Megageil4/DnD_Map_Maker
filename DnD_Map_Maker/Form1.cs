@@ -1,4 +1,7 @@
+using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Test
 {
@@ -13,13 +16,20 @@ namespace Test
         private bool placing;
         private Point lastLocation; // Last location of the mouse
         private bool clear = false;
-        private int size = 50; // Size of the squares
+        private int size = 60; // Size of the squares
 
 
         private void button1_MouseDown(object sender, MouseEventArgs e) // When the mouse is pressed down on button1
         {
-            mouseDown = true;
-            lastLocation = e.Location; // Saves last location
+            if (e.Button == MouseButtons.Left)
+            {
+                mouseDown = true;
+                lastLocation = e.Location; // Saves last location
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                contextMenuStrip1.Show(button1,e.Location);
+            }
         }
 
 
@@ -28,7 +38,7 @@ namespace Test
             if (mouseDown)
             {
                 button1.Location = new Point( // Repositions the button to the nearst square
-                    (int)RoundF((button1.Location.X - lastLocation.X) + e.X, Width / size), (int)RoundF((button1.Location.Y - lastLocation.Y) + e.Y,Width / size));
+                    (int)RoundF((button1.Location.X - lastLocation.X) + e.X, Width / size), (int)RoundF((button1.Location.Y - lastLocation.Y) + e.Y, Width / size));
                 //                              ^ Rounds X location to nearest value dividable by width / size
                 //                                Example: RoundF(73.5, 5) -> 75 
                 button1.Update();
@@ -49,41 +59,50 @@ namespace Test
                 e.Graphics.Clear(Color.White);
             }
 
-            int mult = this.Width / size; // ka vergessen was genau ich mir gedacht hab
-            for (int i = 0; i < this.Width; i++)
+            // draw a grid full of hexagons
+            for (int y = 0; y < Height / (size / 2); y++)
             {
-                CreateGraphics().DrawLine(pen, mult * i, 0, mult * i, Height);
-             // new Graphi  what to do ^  ^ wich pen      ^ corrdinates
-            }
+                for (int x = 0; x < Width / (size / 2); x++)
+                {
+                    int xpos = x * size;
+                    int ypos = y * size;
 
-            mult = this.Width / size;
-            for (int i = 0; i < this.Height; i++)
-            {
-                CreateGraphics().DrawLine(pen, 0, mult * i,Width, mult * i);
+                    xpos += (size / 2) * (y % 2);
+                    ypos -= (size / 4 + 1) * y;
+
+                    e.Graphics.DrawPolygon(pen, new Point[] {
+                        new Point(xpos + size / 2, ypos),
+                        new Point(xpos + size, ypos + size / 4),
+                        new Point(xpos + size, ypos + size / 4 * 3),
+                        new Point(xpos + size / 2, ypos + size),
+                        new Point(xpos,ypos + size / 4 * 3),
+                        new Point(xpos, ypos + size / 4)
+                    });
+                }
             }
         }
 
-        private void Form1_SizeChanged(object sender, EventArgs e)
+        private void Form1_SizeChanged(object sender, EventArgs e) //braucht man egentlich nicht
         {
             clear = true;
-            Form1_Paint(sender, new PaintEventArgs(this.CreateGraphics(), this.ClientRectangle)); // call the Form1_Paint event, basicly like a method
+            //Form1_Paint(sender, new PaintEventArgs(this.CreateGraphics(), this.ClientRectangle)); // call the Form1_Paint event, basicly like a method
             clear = false;
         }
 
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        private void Form1_MouseDown(object sender, MouseEventArgs e) // diche hex werdnen gezeichnet
         {
             if (e.Button == MouseButtons.Left)
             {
-                DrawBlock(Color.Black, e);
+                DrawHexagon(Color.Black, e);
                 // Draw block at e(=mouse pos)
             }
-            else if (true)
+            else
             {
-                DrawBlock(Color.LightGray, e);
+                DrawHexagon(Color.LightGray, e);
             }
             placing = true;
         }
-        
+
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
             if (placing && e.Button == MouseButtons.Left)
@@ -96,25 +115,86 @@ namespace Test
         {
             if (placing && e.Button == MouseButtons.Left)
             {
-                DrawBlock(Color.Black,e);
+                DrawHexagon(Color.Black, e);
             }
             else if (placing && e.Button == MouseButtons.Right)
             {
-                DrawBlock(Color.LightGray,e);
+                DrawHexagon(Color.LightGray, e);
             }
         }
 
-        private void DrawBlock(Color color, MouseEventArgs e)
+        private void DrawLine(Color color, MouseEventArgs e) //debugtool
         {
             Pen pen = new Pen(color, 3);
-            float x = RoundF(e.X, Width / size);
-            float y = RoundF(e.Y, Width / size);
-            CreateGraphics().DrawRectangle(pen, x, y, size, size);
+            Point x = new Point(40, 40);
+            Point y = new Point(100, 40);
+            CreateGraphics().DrawLine(pen, x, y);
+        }
+        private void DrawHexagon(Color color, MouseEventArgs e) // zeichner
+        {
+            //DrawLine(Color.Red, e);
+            Pen pen = new Pen(color, 3);
+
+            int x = (int)RoundF(e.X, size);
+            //int y = (int)RoundF(e.Y, (size / 4) * 3);
+            //int offset = 
+            
+
+            //float yF = e.Y * 1.0F / size * (size / 4.0F) * 3.0F;
+
+            int y = (int)(e.Y);
+
+            y = (int)RoundF(y, (size / 4) * (float)2.935);
+
+            int yr = y; //r steht f�r rechnen
+            int xr = (int)RoundF(e.X, 30);
+            yr = yr % 45;
+            yr = y - yr;
+            yr /= 45;
+            if (yr % 2 == 0 && y > 30)
+            {
+                xr /= 30;
+                if (xr % 2 == 0)
+                {
+                    x -= 30;
+                }
+                else
+                {
+                    x += 30;
+                }
+            }
+
+            //if ((y + 0.0F) / size % 2 != 0)
+            //{
+            //    if (e.X * 1.0 / size - (int)(e.X / size) > 0.5)
+            //    {
+            //        x += size / 2;
+            //    }
+            //    else
+            //    {
+            //        x -= size / 2;
+            //    }
+            //}
+
+
+            CreateGraphics().DrawPolygon(pen, new Point[] {
+                    new Point(x + size / 2, y),
+                    new Point(x + size, y + size / 4),
+                    new Point(x + size, y + size / 4 * 3),
+                    new Point(x + size / 2, y + size),
+                    new Point(x,y + size / 4 * 3),
+                    new Point(x,y + size / 4)
+            });
         }
 
-        private float RoundF(int input, int roundTo)
+        private float RoundF(int input, float roundTo)
         {
-            return MathF.Round(input / roundTo) * (roundTo); // Callculates next value dividable by rountTo
+            return MathF.Round(input / roundTo, MidpointRounding.ToZero) * (roundTo); // Callculates next value dividable by rountTo
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
