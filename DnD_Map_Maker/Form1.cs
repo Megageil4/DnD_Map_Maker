@@ -86,10 +86,10 @@ namespace Test
                 DrawHexagon(Color.Black, e);
                 // Draw block at e(=mouse pos)
             }
-            /*else
+            else
             {
                 DrawHexagon(Color.LightGray, e);
-            }*/
+            }
             placing = true;
         }
 
@@ -160,6 +160,46 @@ namespace Test
         private float RoundF(int input, float roundTo)
         {
             return MathF.Round(input / roundTo, MidpointRounding.ToZero) * (roundTo); // Callculates next value dividable by rountTo
+        }
+        private void DrawHexagon(Color color, MouseEventArgs e)
+        {
+            Pen pen = new Pen(color, 3);
+
+            int x = (int)RoundF(e.X,size);
+            //int y = (int)RoundF(e.Y, (size / 4) * 3);
+            //int offset = 
+            //if (y / size % 2 != 0)
+            //{
+            //    if (e.X * 1.0 / size - (int)(e.X / size) > 0.5)
+            //    {
+            //        x += size / 2;
+            //    }
+            //    else
+            //    {
+            //        x -= size / 2;
+            //    }
+            //}
+
+            float yF = e.Y * 1.0F / size * (size / 4.0F) * 3.0F;
+
+            int y = (int)yF;
+
+            y = (int)RoundF(y, (size / 4) * 3);
+
+
+            CreateGraphics().DrawPolygon(pen, new Point[] {
+                    new Point(x + size / 2, y),
+                    new Point(x + size, y + size / 4),
+                    new Point(x + size, y + size / 4 * 3),
+                    new Point(x + size / 2, y + size),
+                    new Point(x,y + size / 4 * 3),
+                    new Point(x,y + size / 4)
+            });
+        }
+
+        private float RoundF(int input, int roundTo)
+        {
+            return MathF.Round(input / roundTo,MidpointRounding.ToZero) * (roundTo); // Callculates next value dividable by rountTo
         }
     }
 }
