@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace Test
+namespace DnD_Map_Maker
 {
     public partial class MainForm : Form
     {
@@ -9,16 +9,17 @@ namespace Test
         {
             InitializeComponent();
             grid = new int[Width / size, Height / size];
-            pictureBox1.Width = size - 6;
-            pictureBox1.Height = size - 6;
+            pictureBox1.Width = size - penSize * 3;
+            pictureBox1.Height = size - penSize * 3;
         }
 
         private bool mouseDown; // Boolean to check if the mouse is down
         private bool placing;
         private Point lastLocation; // Last location of the mouse
-        private const int size = 50; // Size of the squares
-        private int[,] grid; // Grid of the map
-        private const int penSize = 2; // Size of the pen
+        public int size = 50; // Size of the squares
+        public int[,] grid; // Grid of the map
+        public readonly int penSize = 2; // Size of the pen
+        public bool wallBlockingPlayer = true; // Boolean to check if the player can walk through walls
 
 
         private void button1_MouseDown(object sender, MouseEventArgs e) // When the mouse is pressed down on button1
@@ -35,8 +36,11 @@ namespace Test
                 //pictureBox1.Location = new Point( // Repositions the button to the nearst 
                 //    (int)RoundF((pictureBox1.Location.X - lastLocation.X) + e.X, size) + 3, (int)RoundF((pictureBox1.Location.Y - lastLocation.Y) + e.Y,size) + 3);
                 var mouse = PointToClient(Cursor.Position);
-                pictureBox1.Location = new Point(
-                    RoundI(mouse.X, size) + 3, RoundI(mouse.Y, size) + 3);
+                Point newLocation = new Point(RoundI(mouse.X, size) + 3, RoundI(mouse.Y, size) + 3);
+                if (grid[newLocation.X / size, newLocation.Y / size] == 0 || !wallBlockingPlayer)
+                {
+                    pictureBox1.Location = newLocation;
+                }
 
                 pictureBox1.Update();
             }
@@ -125,12 +129,12 @@ namespace Test
             }
         }
 
-        private float RoundF(int input, int roundTo)
+        public float RoundF(int input, int roundTo)
         {
             return MathF.Round(input / roundTo) * (roundTo); // Callculates next value dividable by rountTo
         }
 
-        private int RoundI(int input, int roundTo)
+        public int RoundI(int input, int roundTo)
         {
             return (int)MathF.Round(input / roundTo) * (roundTo); // Callculates next value dividable by rountTo
         }
@@ -159,6 +163,25 @@ namespace Test
                         DrawBlock(pen, x * size + penSize, y * size + penSize);
                     }
                 }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "test1", this);
+            Controls.Add(en);
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var res = MessageBox.Show(
+                "Do you really want to create a new File?\r\nAny unsaved data will be lost.",
+                "New File",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Question);
+            if (res == DialogResult.OK)
+            {
+                Application.Restart();
             }
         }
     }
