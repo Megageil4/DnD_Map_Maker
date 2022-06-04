@@ -1,19 +1,24 @@
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace Test
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1() // Gets executed when the form is created 
+        public MainForm() // Gets executed when the form is created 
         {
             InitializeComponent();
+            grid = new int[Width / size, Height / size];
+            pictureBox1.Width = size - 6;
+            pictureBox1.Height = size - 6;
         }
 
         private bool mouseDown; // Boolean to check if the mouse is down
         private bool placing;
         private Point lastLocation; // Last location of the mouse
-        private bool clear = false;
-        private int size = 50; // Size of the squares
+        private const int size = 50; // Size of the squares
+        private int[,] grid; // Grid of the map
+        private const int penSize = 2; // Size of the pen
 
 
         private void button1_MouseDown(object sender, MouseEventArgs e) // When the mouse is pressed down on button1
@@ -27,11 +32,13 @@ namespace Test
         {
             if (mouseDown)
             {
-                button1.Location = new Point( // Repositions the button to the nearst square
-                    (int)RoundF((button1.Location.X - lastLocation.X) + e.X, Width / size), (int)RoundF((button1.Location.Y - lastLocation.Y) + e.Y,Width / size));
-                //                              ^ Rounds X location to nearest value dividable by width / size
-                //                                Example: RoundF(73.5, 5) -> 75 
-                button1.Update();
+                //pictureBox1.Location = new Point( // Repositions the button to the nearst 
+                //    (int)RoundF((pictureBox1.Location.X - lastLocation.X) + e.X, size) + 3, (int)RoundF((pictureBox1.Location.Y - lastLocation.Y) + e.Y,size) + 3);
+                var mouse = PointToClient(Cursor.Position);
+                pictureBox1.Location = new Point(
+                    RoundI(mouse.X, size) + 3, RoundI(mouse.Y, size) + 3);
+
+                pictureBox1.Update();
             }
         }
 
@@ -42,32 +49,18 @@ namespace Test
 
         private void Form1_Paint(object sender, PaintEventArgs e) // When Form1 gets drawn
         {
-            Pen pen = new Pen(Color.LightGray, 4); // Same as turtle
+            Pen pen = new Pen(Color.LightGray, penSize); // Same as 
 
-            if (clear) // when it has to be cleared
+            for (int i = 0; i < this.Width / size; i++)
             {
-                e.Graphics.Clear(Color.White);
+                CreateGraphics().DrawLine(pen, i * size, 0, i * size, Height);
+                // new Graphi  what to do ^  ^ wich pen      ^ corrdinates
             }
 
-            int mult = this.Width / size; // ka vergessen was genau ich mir gedacht hab
-            for (int i = 0; i < this.Width; i++)
+            for (int i = 0; i < this.Height / size; i++)
             {
-                CreateGraphics().DrawLine(pen, mult * i, 0, mult * i, Height);
-             // new Graphi  what to do ^  ^ wich pen      ^ corrdinates
+                CreateGraphics().DrawLine(pen, 0, i * size, Width, i * size);
             }
-
-            mult = this.Width / size;
-            for (int i = 0; i < this.Height; i++)
-            {
-                CreateGraphics().DrawLine(pen, 0, mult * i,Width, mult * i);
-            }
-        }
-
-        private void Form1_SizeChanged(object sender, EventArgs e)
-        {
-            clear = true;
-            Form1_Paint(sender, new PaintEventArgs(this.CreateGraphics(), this.ClientRectangle)); // call the Form1_Paint event, basicly like a method
-            clear = false;
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -79,11 +72,11 @@ namespace Test
             }
             else if (true)
             {
-                DrawBlock(Color.LightGray, e);
+                DrawBlock(Color.White, e);
             }
             placing = true;
         }
-        
+
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
             if (placing && e.Button == MouseButtons.Left)
@@ -96,25 +89,77 @@ namespace Test
         {
             if (placing && e.Button == MouseButtons.Left)
             {
-                DrawBlock(Color.Black,e);
+                DrawBlock(Color.Black, e);
             }
             else if (placing && e.Button == MouseButtons.Right)
             {
-                DrawBlock(Color.LightGray,e);
+                DrawBlock(Color.White, e);
             }
         }
 
         private void DrawBlock(Color color, MouseEventArgs e)
         {
-            Pen pen = new Pen(color, 3);
-            float x = RoundF(e.X, Width / size);
-            float y = RoundF(e.Y, Width / size);
-            CreateGraphics().DrawRectangle(pen, x, y, size, size);
+            Pen pen = new Pen(color, penSize);
+            float x = RoundF(e.X, size);
+            float y = RoundF(e.Y, size);
+            DrawBlock(pen, (int)x + 2, (int)y + 2);
+        }
+
+        private void DrawBlock(Pen pen, int x, int y)
+        {
+            CreateGraphics().DrawRectangle(pen, x, y, size - 4, size - 4);
+            try
+            {
+                if (pen.Color == Color.Black)
+                {
+                    grid[x / size, y / size] = 1;
+                }
+                else if (pen.Color == Color.White)
+                {
+                    grid[x / size, y / size] = 0;
+                }
+            }
+            catch
+            {
+                //MessageBox.Show("Bitte nicht auserhalb des Fensters zeichnen, danke", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private float RoundF(int input, int roundTo)
         {
             return MathF.Round(input / roundTo) * (roundTo); // Callculates next value dividable by rountTo
+        }
+
+        private int RoundI(int input, int roundTo)
+        {
+            return (int)MathF.Round(input / roundTo) * (roundTo); // Callculates next value dividable by rountTo
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            int[,] newArray = new int[Width / size, Height / size];
+            if (!(newArray.Length < grid.Length))
+            {
+                for (int y = 0; y < grid.GetLength(1); y++)
+                {
+                    for (int x = 0; x < grid.GetLength(0); x++)
+                    {
+                        newArray[x, y] = grid[x, y];
+                    }
+                }
+                grid = newArray;
+            }
+            Pen pen = new Pen(Color.Black, penSize);
+            for (int y = 0; y < grid.GetLength(1); y++)
+            {
+                for (int x = 0; x < grid.GetLength(0); x++)
+                {
+                    if (grid[x, y] == 1)
+                    {
+                        DrawBlock(pen, x * size + penSize, y * size + penSize);
+                    }
+                }
+            }
         }
     }
 }
