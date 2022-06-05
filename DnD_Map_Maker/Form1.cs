@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.IO.Compression;
 
 namespace DnD_Map_Maker
 {
@@ -9,48 +10,15 @@ namespace DnD_Map_Maker
         {
             InitializeComponent();
             grid = new int[Width / size, Height / size];
-            pictureBox1.Width = size - penSize * 3;
-            pictureBox1.Height = size - penSize * 3;
         }
 
-        private bool mouseDown; // Boolean to check if the mouse is down
         private bool placing;
-        private Point lastLocation; // Last location of the mouse
         public int size = 50; // Size of the squares
         public int[,] grid; // Grid of the map
         public readonly int penSize = 2; // Size of the pen
         public bool wallBlockingPlayer = true; // Boolean to check if the player can walk through walls
         private List<Entity> entities = new List<Entity>();
 
-
-        private void button1_MouseDown(object sender, MouseEventArgs e) // When the mouse is pressed down on button1
-        {
-            mouseDown = true;
-            lastLocation = e.Location; // Saves last location
-        }
-
-
-        private void button1_MouseMove(object sender, MouseEventArgs e)  // When the mouse moves
-        {
-            if (mouseDown)
-            {
-                //pictureBox1.Location = new Point( // Repositions the button to the nearst 
-                //    (int)RoundF((pictureBox1.Location.X - lastLocation.X) + e.X, size) + 3, (int)RoundF((pictureBox1.Location.Y - lastLocation.Y) + e.Y,size) + 3);
-                var mouse = PointToClient(Cursor.Position);
-                Point newLocation = new Point(RoundI(mouse.X, size) + 3, RoundI(mouse.Y, size) + 3);
-                if (grid[newLocation.X / size, newLocation.Y / size] == 0 || !wallBlockingPlayer)
-                {
-                    pictureBox1.Location = newLocation;
-                }
-
-                pictureBox1.Update();
-            }
-        }
-
-        private void button1_MouseUp(object sender, MouseEventArgs e)
-        {
-            mouseDown = false;
-        }
 
         private void Form1_Paint(object sender, PaintEventArgs e) // When Form1 gets drawn
         {
@@ -169,7 +137,7 @@ namespace DnD_Map_Maker
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "test1", this);
+            Entity en = new Entity(153, 53, size, size, "test1", @"..\..\..\Resources\none.png", this);
             Controls.Add(en);
             entities.Add(en);
         }
@@ -184,6 +152,37 @@ namespace DnD_Map_Maker
             if (res == DialogResult.OK)
             {
                 Application.Restart();
+            }
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFile.InitialDirectory = @"%USERPROFILE%\Documents\";
+            SaveFile.Filter = "DnD Map Files|*.dndmap";
+
+            if (SaveFile.ShowDialog() == DialogResult.OK)
+            {
+                string[] blocks = new string[grid.GetLength(1)];
+                for (int y = 0; y < grid.GetLength(1); y++)
+                {
+                    for (int x = 0; x < grid.GetLength(0); x++)
+                    {
+                        blocks[y] += grid[x, y].ToString();
+                    }
+                    File.WriteAllLines(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapblocks", blocks);
+                }
+                string[] entitiyArray = new string[entities.Count];
+                foreach (var en in entities)
+                {
+                    entitiyArray[entities.IndexOf(en)] = en.ToString();
+                }
+                File.WriteAllLines(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapentities", entitiyArray);
+                
+                using (var archive = ZipFile.Open(SaveFile.FileName, ZipArchiveMode.Create))
+                {
+                    archive.CreateEntryFromFile(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapblocks", "blocks.txt");
+                    archive.CreateEntryFromFile(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapentities", "entities.txt");
+                }
             }
         }
     }

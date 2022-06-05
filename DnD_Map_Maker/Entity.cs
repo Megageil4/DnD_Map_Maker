@@ -12,17 +12,21 @@ namespace DnD_Map_Maker
         private Point lastLocation;
         private MainForm m;
         private Label label = new Label();
-        public Entity(int x, int y, int width, int height, string name, MainForm mainForm)
+        private string imagePath = "";
+        public Entity(int x, int y, int width, int height, string name, string imgPath,MainForm mainForm)
         {
             this.m = mainForm;
             this.Location = new Point(x, y);
             this.Width = width - mainForm.penSize * 3;
             this.Height = height - mainForm.penSize * 3;
-            this.Name = name;
-            this.BackColor = Color.Black;
+            //this.BackColor = Color.Black;
             this.MouseDown += MouseDownHandler;
             this.MouseMove += MouseMoveHandler;
             this.MouseUp += MouseUpHandler;
+            Image = Image.FromFile(imgPath);
+            imagePath = imgPath;
+            SizeMode = PictureBoxSizeMode.StretchImage;
+            BackColor = Color.Transparent;
             
             ContextMenuStrip c = new ContextMenuStrip();
             this.ContextMenuStrip = new ContextMenuStrip();
@@ -38,7 +42,7 @@ namespace DnD_Map_Maker
             
             label.TextAlign = ContentAlignment.MiddleCenter;
             label.BackColor = Color.Transparent;
-            label.Text = "New Entity";
+            label.Text = name;
             label.Width = m.size * 2;
             label.Location = new Point(Location.X - m.size / 2, Location.Y - m.size / 2);
         }
@@ -72,12 +76,13 @@ namespace DnD_Map_Maker
         
         private void ContextMenu_File(object? sender, EventArgs e)
         {
-            m.OpenFile.InitialDirectory = ".";
+            m.OpenFile.InitialDirectory = @"..\..\..\";
             m.OpenFile.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
 
             if (m.OpenFile.ShowDialog() == DialogResult.OK)
             {
                 ImageLocation = m.OpenFile.FileName;
+                imagePath = m.OpenFile.FileName;
                 SizeMode = PictureBoxSizeMode.StretchImage;
                 BackColor = Color.Transparent;
             }
@@ -101,12 +106,8 @@ namespace DnD_Map_Maker
             {
                 m.EntityContextMenu.Visible = false;
                 ContextMenuStrip.Show(e.Location);
-                Thread.Sleep(100);
+                Thread.Sleep(120);
                 m.EntityContextMenu.Visible = true;
-                if (true)
-                {
-
-                }
             }
         }
 
@@ -128,6 +129,10 @@ namespace DnD_Map_Maker
         private void MouseUpHandler(object? sender, MouseEventArgs e)
         {
             mouseDown = false;
+        }
+        public override string ToString()
+        {
+            return $"{Location.X};{Location.Y};{Width};{Height};{label.Text};{imagePath}";
         }
     }
 }
