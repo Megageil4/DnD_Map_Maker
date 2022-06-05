@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.MenuPanel = new System.Windows.Forms.Panel();
@@ -43,14 +45,24 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EntityContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.chnageNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeIconToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.presetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dublicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenFile = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.MenuPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.EntityContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Black;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(370, 298);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(35, 35);
@@ -110,20 +122,20 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Load";
             // 
             // gridToolStripMenuItem
@@ -177,6 +189,59 @@
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
+            // EntityContextMenu
+            // 
+            this.EntityContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chnageNameToolStripMenuItem,
+            this.changeIconToolStripMenuItem,
+            this.dublicateToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.EntityContextMenu.Name = "contextMenuStrip1";
+            this.EntityContextMenu.Size = new System.Drawing.Size(151, 92);
+            // 
+            // chnageNameToolStripMenuItem
+            // 
+            this.chnageNameToolStripMenuItem.Name = "chnageNameToolStripMenuItem";
+            this.chnageNameToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.chnageNameToolStripMenuItem.Text = "Chnage Name";
+            // 
+            // changeIconToolStripMenuItem
+            // 
+            this.changeIconToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.presetToolStripMenuItem,
+            this.fileToolStripMenuItem});
+            this.changeIconToolStripMenuItem.Name = "changeIconToolStripMenuItem";
+            this.changeIconToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.changeIconToolStripMenuItem.Text = "Change Icon";
+            // 
+            // presetToolStripMenuItem
+            // 
+            this.presetToolStripMenuItem.Name = "presetToolStripMenuItem";
+            this.presetToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.presetToolStripMenuItem.Text = "Preset";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // dublicateToolStripMenuItem
+            // 
+            this.dublicateToolStripMenuItem.Name = "dublicateToolStripMenuItem";
+            this.dublicateToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.dublicateToolStripMenuItem.Text = "Dublicate";
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            // 
+            // OpenFile
+            // 
+            this.OpenFile.FileName = "openFileDialog1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -186,8 +251,9 @@
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "Dungens & Dragons Map Maker";
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
@@ -197,6 +263,7 @@
             this.MenuPanel.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.EntityContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,5 +286,13 @@
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem infoToolStripMenuItem;
         private ToolStripMenuItem optionsToolStripMenuItem;
+        private ToolStripMenuItem chnageNameToolStripMenuItem;
+        private ToolStripMenuItem changeIconToolStripMenuItem;
+        private ToolStripMenuItem presetToolStripMenuItem;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        public ContextMenuStrip EntityContextMenu;
+        private ToolStripMenuItem dublicateToolStripMenuItem;
+        private ToolStripMenuItem deleteToolStripMenuItem;
+        public OpenFileDialog OpenFile;
     }
 }

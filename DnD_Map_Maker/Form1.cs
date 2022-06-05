@@ -20,6 +20,7 @@ namespace DnD_Map_Maker
         public int[,] grid; // Grid of the map
         public readonly int penSize = 2; // Size of the pen
         public bool wallBlockingPlayer = true; // Boolean to check if the player can walk through walls
+        private List<Entity> entities = new List<Entity>();
 
 
         private void button1_MouseDown(object sender, MouseEventArgs e) // When the mouse is pressed down on button1
@@ -170,6 +171,7 @@ namespace DnD_Map_Maker
         {
             Entity en = new Entity(153, 53, size, size, "test1", this);
             Controls.Add(en);
+            entities.Add(en);
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
