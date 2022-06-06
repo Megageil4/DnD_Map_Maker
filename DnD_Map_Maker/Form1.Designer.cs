@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.button1 = new System.Windows.Forms.Button();
             this.MenuPanel = new System.Windows.Forms.Panel();
+            this.EraserButton = new FontAwesome.Sharp.IconButton();
+            this.PenButton = new FontAwesome.Sharp.IconButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,12 +76,42 @@
             // MenuPanel
             // 
             this.MenuPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.MenuPanel.Controls.Add(this.EraserButton);
+            this.MenuPanel.Controls.Add(this.PenButton);
             this.MenuPanel.Controls.Add(this.button1);
             this.MenuPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.MenuPanel.Location = new System.Drawing.Point(0, 24);
             this.MenuPanel.Name = "MenuPanel";
             this.MenuPanel.Size = new System.Drawing.Size(100, 613);
             this.MenuPanel.TabIndex = 2;
+            // 
+            // EraserButton
+            // 
+            this.EraserButton.FlatAppearance.BorderSize = 0;
+            this.EraserButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EraserButton.IconChar = FontAwesome.Sharp.IconChar.Eraser;
+            this.EraserButton.IconColor = System.Drawing.Color.Black;
+            this.EraserButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.EraserButton.Location = new System.Drawing.Point(12, 181);
+            this.EraserButton.Name = "EraserButton";
+            this.EraserButton.Size = new System.Drawing.Size(54, 51);
+            this.EraserButton.TabIndex = 3;
+            this.EraserButton.UseVisualStyleBackColor = true;
+            this.EraserButton.Click += new System.EventHandler(this.EraserButton_Click);
+            // 
+            // PenButton
+            // 
+            this.PenButton.FlatAppearance.BorderSize = 0;
+            this.PenButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PenButton.IconChar = FontAwesome.Sharp.IconChar.Pen;
+            this.PenButton.IconColor = System.Drawing.Color.Black;
+            this.PenButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.PenButton.Location = new System.Drawing.Point(12, 97);
+            this.PenButton.Name = "PenButton";
+            this.PenButton.Size = new System.Drawing.Size(54, 49);
+            this.PenButton.TabIndex = 2;
+            this.PenButton.UseVisualStyleBackColor = true;
+            this.PenButton.Click += new System.EventHandler(this.PenButton_Click);
             // 
             // menuStrip1
             // 
@@ -111,21 +143,21 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -308,5 +340,7 @@
         private ToolStripMenuItem modeToolStripMenuItem;
         private ToolStripMenuItem squareToolStripMenuItem;
         private ToolStripMenuItem hexagonToolStripMenuItem;
+        private FontAwesome.Sharp.IconButton PenButton;
+        private FontAwesome.Sharp.IconButton EraserButton;
     }
 }

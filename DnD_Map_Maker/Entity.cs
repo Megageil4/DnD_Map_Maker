@@ -24,7 +24,7 @@ namespace DnD_Map_Maker
             this.MouseMove += MouseMoveHandler;
             this.MouseUp += MouseUpHandler;
             Image = Image.FromFile(imgPath);
-            imagePath = imgPath;
+            imagePath = Path.GetFullPath(imgPath);
             SizeMode = PictureBoxSizeMode.StretchImage;
             BackColor = Color.Transparent;
             
@@ -76,7 +76,7 @@ namespace DnD_Map_Maker
         
         private void ContextMenu_File(object? sender, EventArgs e)
         {
-            m.OpenFile.InitialDirectory = @"..\..\..\";
+            m.OpenFile.InitialDirectory = @"Resources";
             m.OpenFile.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
 
             if (m.OpenFile.ShowDialog() == DialogResult.OK)

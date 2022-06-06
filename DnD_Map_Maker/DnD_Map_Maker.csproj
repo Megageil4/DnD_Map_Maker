@@ -7,10 +7,16 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>Resources\Ico.ico</ApplicationIcon>
+	<RuntimeIdentifier>win-x86</RuntimeIdentifier>
+	<PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="Resources\Ico.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="5.15.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,5 +33,5 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
+	    
 </Project>

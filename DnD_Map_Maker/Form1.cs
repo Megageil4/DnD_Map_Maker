@@ -10,13 +10,18 @@ namespace DnD_Map_Maker
         {
             InitializeComponent();
             grid = new int[Width / size, Height / size];
+            drawings = new int[Width, Height];
         }
 
         private bool placing;
         public int size = 50; // Size of the squares
         public int[,] grid; // Grid of the map
+        public int[,] drawings;
         public readonly int penSize = 2; // Size of the pen
         public bool wallBlockingPlayer = true; // Boolean to check if the player can walk through walls
+        private bool isUsingPencil = false; // Boolean to check if the user is using the pencil
+        private bool isUsingEraser = false; // Boolean to check if the user is using the eraser
+        private bool drawn = false; // Boolean to check if the user has drawn something
         private List<Entity> entities = new List<Entity>();
 
 
@@ -38,16 +43,44 @@ namespace DnD_Map_Maker
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            try
             {
-                DrawBlock(Color.Black, e);
-                // Draw block at e(=mouse pos)
+                if (isUsingPencil)
+                {
+                    CreateGraphics().FillRectangle(new SolidBrush(Color.Black), e.X, e.Y, 4, 4);
+                    drawings[e.X, e.Y] = 1;
+                    drawn = true;
+                }
+                else if (isUsingEraser)
+                {
+                    CreateGraphics().FillRectangle(new SolidBrush(Color.White), e.X - 16, e.Y - 16, 32, 32);
+                    Form1_Paint(this, new PaintEventArgs(CreateGraphics(), new Rectangle(e.X, e.Y, 20, 20)));
+                    for (int y = 0; y < 16; y++)
+                    {
+                        for (int x = 0; x < 16; x++)
+                        {
+                            drawings[e.X + x, e.Y + y] = 0;
+                            drawings[e.X - x, e.Y + y] = 0;
+                            drawings[e.X + x, e.Y - y] = 0;
+                            drawings[e.X - x, e.Y - y] = 0;
+                        }
+                    }
+                }
+                else
+                {
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        DrawBlock(Color.Black, e);
+                        // Draw block at e(=mouse pos)
+                    }
+                    else
+                    {
+                        DrawBlock(Color.White, e);
+                    }
+                    placing = true;
+                }
             }
-            else if (true)
-            {
-                DrawBlock(Color.White, e);
-            }
-            placing = true;
+            catch { }
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -60,7 +93,11 @@ namespace DnD_Map_Maker
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (placing && e.Button == MouseButtons.Left)
+            if ((isUsingPencil || isUsingEraser) && e.Button == MouseButtons.Left)
+            {
+                Form1_MouseDown(this, e);
+            }
+            else if (placing && e.Button == MouseButtons.Left)
             {
                 DrawBlock(Color.Black, e);
             }
@@ -110,36 +147,81 @@ namespace DnD_Map_Maker
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            int[,] newArray = new int[Width / size, Height / size];
-            if (!(newArray.Length <= grid.Length))
+            try
             {
+                int[,] newArray = new int[Width / size, Height / size];
+                int[,] newDrawings = new int[Width, Height];
+                if (!(newArray.Length <= grid.Length))
+                {
+                    for (int y = 0; y < grid.GetLength(1); y++)
+                    {
+                        for (int x = 0; x < grid.GetLength(0); x++)
+                        {
+                            newArray[x, y] = grid[x, y];
+                        }
+                    }
+                    if (drawn)
+                    {
+                        for (int y = 0; y < drawings.GetLength(1); y++)
+                        {
+                            for (int x = 0; x < drawings.GetLength(0); x++)
+                            {
+                                newDrawings[x, y] = drawings[x, y];
+                                if (drawings[x, y] == 1)
+                                {
+                                    CreateGraphics().FillRectangle(new SolidBrush(Color.Black), x, y, 4, 4);
+                                }
+                            }
+                        }
+                    }
+                    drawings = newDrawings;
+                    grid = newArray;
+                }
+                Pen pen = new Pen(Color.Black, penSize);
                 for (int y = 0; y < grid.GetLength(1); y++)
                 {
                     for (int x = 0; x < grid.GetLength(0); x++)
                     {
-                        newArray[x, y] = grid[x, y];
+                        if (grid[x, y] == 1)
+                        {
+                            DrawBlock(pen, x * size + penSize, y * size + penSize);
+                        }
                     }
                 }
-                grid = newArray;
-            }
-            Pen pen = new Pen(Color.Black, penSize);
-            for (int y = 0; y < grid.GetLength(1); y++)
-            {
-                for (int x = 0; x < grid.GetLength(0); x++)
+                if (drawn)
                 {
-                    if (grid[x, y] == 1)
+                    for (int y = 0; y < drawings.GetLength(1); y++)
                     {
-                        DrawBlock(pen, x * size + penSize, y * size + penSize);
+                        for (int x = 0; x < drawings.GetLength(0); x++)
+                        {
+                            if (drawings[x, y] == 1)
+                            {
+                                CreateGraphics().FillRectangle(new SolidBrush(Color.Black), x, y, 4, 4);
+                            }
+                        }
                     }
                 }
+            }
+            catch
+            {
+
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "test1", @"..\..\..\Resources\none.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            if (File.Exists(@"Resources\none.png"))
+            {
+                Entity en = new Entity(153, 53, size, size, "test1", @"Resources\none.png", this);
+                Controls.Add(en);
+                entities.Add(en);
+            }
+            else
+            {
+                Entity en = new Entity(153, 53, size, size, "test1", @"..\..\..\Resources\none.png", this);
+                Controls.Add(en);
+                entities.Add(en);
+            }
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -178,10 +260,20 @@ namespace DnD_Map_Maker
                 }
                 File.WriteAllLines(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapentities", entitiyArray);
 
+                blocks = new string[drawings.GetLength(1)];
+                for (int y = 0; y < drawings.GetLength(1); y++)
+                {
+                    for (int x = 0; x < drawings.GetLength(0); x++)
+                    {
+                        blocks[y] += drawings[x, y].ToString();
+                    }
+                    File.WriteAllLines(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapdrawings", blocks);
+                }
                 using (var archive = ZipFile.Open(SaveFile.FileName, ZipArchiveMode.Update))
                 {
                     archive.CreateEntryFromFile(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapblocks", "blocks.txt");
                     archive.CreateEntryFromFile(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapentities", "entities.txt");
+                    archive.CreateEntryFromFile(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapdrawings", "drawings.txt");
                 }
             }
         }
@@ -239,10 +331,59 @@ namespace DnD_Map_Maker
                                 Controls.Add(entities[entities.Count - 1]);
                             }
                         }
+                        else if (entry.Name == "drawings.txt")
+                        {
+                            entry.ExtractToFile(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapdrawings", true);
+                            string[] blocks = File.ReadAllLines(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapdrawings");
+                            drawings = new int[blocks[0].Length, blocks.Length];
+                            for (int y = 0; y < blocks.Length; y++)
+                            {
+                                for (int x = 0; x < blocks[y].Length; x++)
+                                {
+                                    drawings[x, y] = int.Parse(blocks[y][x].ToString());
+                                    if (!drawn && drawings[x,y] == 1)
+                                    {
+                                        drawn = true;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 CreateGraphics().Clear(Color.White);
                 this.MainForm_SizeChanged(this, new EventArgs());
+            }
+        }
+
+        private void PenButton_Click(object sender, EventArgs e)
+        {
+            if (isUsingPencil)
+            {
+                isUsingPencil = false;
+                PenButton.BackColor = MenuPanel.BackColor;
+            }
+            else
+            {
+                isUsingPencil = true;
+                PenButton.BackColor = Color.LightGray;
+                isUsingEraser = false;
+                EraserButton.BackColor = MenuPanel.BackColor;
+            }
+        }
+
+        private void EraserButton_Click(object sender, EventArgs e)
+        {
+            if (isUsingEraser)
+            {
+                isUsingEraser = false;
+                EraserButton.BackColor = MenuPanel.BackColor;
+            }
+            else
+            {
+                isUsingEraser = true;
+                EraserButton.BackColor = Color.LightGray;
+                isUsingPencil = false;
+                PenButton.BackColor = MenuPanel.BackColor;
             }
         }
     }
