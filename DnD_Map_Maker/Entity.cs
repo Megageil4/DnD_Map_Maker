@@ -83,8 +83,6 @@ namespace DnD_Map_Maker
             {
                 ImageLocation = m.OpenFile.FileName;
                 imagePath = m.OpenFile.FileName;
-                SizeMode = PictureBoxSizeMode.StretchImage;
-                BackColor = Color.Transparent;
             }
 
         }
@@ -132,7 +130,7 @@ namespace DnD_Map_Maker
         }
         public override string ToString()
         {
-            return $"{Location.X};{Location.Y};{Width};{Height};{label.Text};{imagePath}";
+            return $"{Location.X};{Location.Y};{m.size};{m.size};{label.Text};{imagePath}";
         }
     }
 }

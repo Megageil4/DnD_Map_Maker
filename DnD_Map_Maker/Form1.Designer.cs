@@ -39,6 +39,9 @@
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chnageSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.squareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hexagonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,27 +111,29 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // gridToolStripMenuItem
             // 
             this.gridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.chnageSizeToolStripMenuItem});
+            this.chnageSizeToolStripMenuItem,
+            this.modeToolStripMenuItem});
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
             this.gridToolStripMenuItem.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.gridToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
@@ -139,6 +144,27 @@
             this.chnageSizeToolStripMenuItem.Name = "chnageSizeToolStripMenuItem";
             this.chnageSizeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.chnageSizeToolStripMenuItem.Text = "Change Size";
+            // 
+            // modeToolStripMenuItem
+            // 
+            this.modeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.squareToolStripMenuItem,
+            this.hexagonToolStripMenuItem});
+            this.modeToolStripMenuItem.Name = "modeToolStripMenuItem";
+            this.modeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.modeToolStripMenuItem.Text = "Mode";
+            // 
+            // squareToolStripMenuItem
+            // 
+            this.squareToolStripMenuItem.Name = "squareToolStripMenuItem";
+            this.squareToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.squareToolStripMenuItem.Text = "Square";
+            // 
+            // hexagonToolStripMenuItem
+            // 
+            this.hexagonToolStripMenuItem.Name = "hexagonToolStripMenuItem";
+            this.hexagonToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.hexagonToolStripMenuItem.Text = "Hexagon";
             // 
             // extraToolStripMenuItem
             // 
@@ -157,6 +183,7 @@
             this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
             this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.gitHubToolStripMenuItem.Text = "GitHub";
+            this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.gitHubToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -278,5 +305,8 @@
         private ToolStripMenuItem deleteToolStripMenuItem;
         public OpenFileDialog OpenFile;
         private SaveFileDialog SaveFile;
+        private ToolStripMenuItem modeToolStripMenuItem;
+        private ToolStripMenuItem squareToolStripMenuItem;
+        private ToolStripMenuItem hexagonToolStripMenuItem;
     }
 }

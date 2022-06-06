@@ -111,7 +111,7 @@ namespace DnD_Map_Maker
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
             int[,] newArray = new int[Width / size, Height / size];
-            if (!(newArray.Length < grid.Length))
+            if (!(newArray.Length <= grid.Length))
             {
                 for (int y = 0; y < grid.GetLength(1); y++)
                 {
@@ -177,12 +177,72 @@ namespace DnD_Map_Maker
                     entitiyArray[entities.IndexOf(en)] = en.ToString();
                 }
                 File.WriteAllLines(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapentities", entitiyArray);
-                
-                using (var archive = ZipFile.Open(SaveFile.FileName, ZipArchiveMode.Create))
+
+                using (var archive = ZipFile.Open(SaveFile.FileName, ZipArchiveMode.Update))
                 {
                     archive.CreateEntryFromFile(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapblocks", "blocks.txt");
                     archive.CreateEntryFromFile(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapentities", "entities.txt");
                 }
+            }
+        }
+
+        private void gitHubToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer", "https://github.com/Megageil4/DnD_Map_Maker");
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFile.Filter = "DnD Map Files|*.dndmap";
+
+            if (OpenFile.ShowDialog() == DialogResult.OK)
+            {
+                using (var archive = ZipFile.OpenRead(OpenFile.FileName))
+                {
+                    foreach (var entry in archive.Entries)
+                    {
+                        if (entry.Name == "blocks.txt")
+                        {
+                            entry.ExtractToFile(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapblocks", true);
+
+                            string[] blocks = File.ReadAllLines(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapblocks");
+
+                            grid = new int[blocks[0].Length, blocks.Length];
+                            for (int y = 0; y < blocks.Length; y++)
+                            {
+                                for (int x = 0; x < blocks[y].Length; x++)
+                                {
+                                    grid[x, y] = int.Parse(blocks[y][x].ToString());
+                                }
+                            }
+                        }
+                        else if (entry.Name == "entities.txt")
+                        {
+                            foreach (var en in entities)
+                            {
+                                Controls.Remove(en);
+                            }
+                            entities.Clear();
+                            entry.ExtractToFile(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapentities", true);
+                            string[] entitiyArray = File.ReadAllLines(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapentities");
+                            foreach (var en in entitiyArray)
+                            {
+                                string[] entity = en.Split(';');
+                                entities.Add(new Entity(
+                                    int.Parse(entity[0]),
+                                    int.Parse(entity[1]),
+                                    int.Parse(entity[2]),
+                                    int.Parse(entity[3]),
+                                    entity[4],
+                                    entity[5],
+                                    this));
+                                Controls.Add(entities[entities.Count - 1]);
+                            }
+                        }
+                    }
+                }
+                CreateGraphics().Clear(Color.White);
+                this.MainForm_SizeChanged(this, new EventArgs());
             }
         }
     }
