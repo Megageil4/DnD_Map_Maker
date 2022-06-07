@@ -207,20 +207,27 @@ namespace DnD_Map_Maker
 
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void AddEntity_MouseDown(object sender, MouseEventArgs e)
         {
-            if (File.Exists(@"Resources\none.png"))
+            if (e.Button == MouseButtons.Left)
             {
-                Entity en = new Entity(153, 53, size, size, "test1", @"Resources\none.png", this);
-                Controls.Add(en);
-                entities.Add(en);
+                if (File.Exists(@"Resources\none.png"))
+                {
+                    Entity en = new Entity(153, 53, size, size, "test1", @"Resources\none.png", this);
+                    Controls.Add(en);
+                    entities.Add(en);
+                }
+                else
+                {
+                    Entity en = new Entity(153, 53, size, size, "test1", @"..\..\..\Resources\none.png", this);
+                    Controls.Add(en);
+                    entities.Add(en);
+                }
             }
             else
             {
-                Entity en = new Entity(153, 53, size, size, "test1", @"..\..\..\Resources\none.png", this);
-                Controls.Add(en);
-                entities.Add(en);
+                AddEntity.ContextMenuStrip = AddEntityContextMenu;
+                AddEntity.ContextMenuStrip.Show(AddEntity, new Point(0, AddEntity.Height));
             }
         }
 
@@ -386,5 +393,212 @@ namespace DnD_Map_Maker
                 PenButton.BackColor = MenuPanel.BackColor;
             }
         }
+        
+        // !!DO NOT OPEN THIS!! It's for your sake
+        #region Please never open and ignore the next ~200 lines
+        private void paladinToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Paladin", @"Resources\Presets\Paladin.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void figtherToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Figther", @"Resources\Presets\Fighter.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void clericToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Cleric", @"Resources\Presets\Cleric.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void babaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Babarian", @"Resources\Presets\Barbarian.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void rogueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Rogue", @"Resources\Presets\Rogue.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void monkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Monk", @"Resources\Presets\Monk.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void rangerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Ranger", @"Resources\Presets\Ranger.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void bardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Bard", @"Resources\Presets\Bard.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void druidToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Druid", @"Resources\Presets\Druid.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void sorcererToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Sorcerer", @"Resources\Presets\Sorcerer.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void warlockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Warlock", @"Resources\Presets\Warlock.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void wizardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Wizard", @"Resources\Presets\Wizard.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void enemy1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Enemy1", @"Resources\Presets\Enemy1.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void enemy2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Enemy2", @"Resources\Presets\Enemy2.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void enemy3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Enemy3", @"Resources\Presets\Enemy3.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void enemy4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Enemy4", @"Resources\Presets\Enemy4.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void enemy5ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Enemy5", @"Resources\Presets\Basic Bad Bitch.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void boss1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Boss1", @"Resources\Presets\Boss1.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void boss2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Boss2", @"Resources\Presets\Boss2.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void dragonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Dragon", @"Resources\Presets\Rawwwww.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void door1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Door1", @"Resources\Presets\Door.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void dorr2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Door2", @"Resources\Presets\You expectet a Joke, but it was me Dio.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void stairsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Stairs", @"Resources\Presets\Stairs.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void bonfireToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Bonfire", @"Resources\Presets\Take a rest.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void wellToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Well", @"Resources\Presets\Get Wel soon.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void johanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Balanced", @"Resources\Presets\b in Hans steht für balanced.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void customToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Entity en = new (153, 53, size, size, "Basic Bitch", @"Resources\Presets\Basic Bitch.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void vogelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Vogel", @"Resources\Presets\Daniel and Dragons.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        private void gayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "Gay", @"Resources\Presets\Its ya boy.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+
+        #endregion
     }
 }
