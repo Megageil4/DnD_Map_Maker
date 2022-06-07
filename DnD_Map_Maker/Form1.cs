@@ -209,27 +209,25 @@ namespace DnD_Map_Maker
         }
         private void AddEntity_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            AddEntity.ContextMenuStrip = AddEntityContextMenu;
+            AddEntityContextMenu.Show(AddEntity, new Point(e.X, e.Y));
+        }
+        
+        private void newToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(@"Resources\none.png"))
             {
-                if (File.Exists(@"Resources\none.png"))
-                {
-                    Entity en = new Entity(153, 53, size, size, "test1", @"Resources\none.png", this);
-                    Controls.Add(en);
-                    entities.Add(en);
-                }
-                else
-                {
-                    Entity en = new Entity(153, 53, size, size, "test1", @"..\..\..\Resources\none.png", this);
-                    Controls.Add(en);
-                    entities.Add(en);
-                }
+                Entity en = new Entity(153, 53, size, size, "test1", @"Resources\none.png", this);
+                Controls.Add(en);
+                entities.Add(en);
             }
             else
             {
-                AddEntity.ContextMenuStrip = AddEntityContextMenu;
-                AddEntity.ContextMenuStrip.Show(AddEntity, new Point(0, AddEntity.Height));
+                Entity en = new Entity(153, 53, size, size, "test1", @"..\..\..\Resources\none.png", this);
+                Controls.Add(en);
+                entities.Add(en);
             }
-        }
+        }        
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -600,5 +598,6 @@ namespace DnD_Map_Maker
         }
 
         #endregion
+        
     }
 }
