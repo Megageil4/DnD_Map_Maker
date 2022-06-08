@@ -32,12 +32,8 @@ namespace DnD_Map_Maker
             this.ContextMenuStrip = new ContextMenuStrip();
             this.ContextMenuStrip.Items.Add("Show Name", null, ContextMenu_ShowName);
             this.ContextMenuStrip.Items.Add("Set Name",null,ContextMenu_SetName);
-            ToolStripItem[] setIcons = new ToolStripItem[]
-            {
-                new ToolStripMenuItem("From preset", null, ContextMenu_Preset),
-                new ToolStripMenuItem("From file", null, ContextMenu_File)
-            };
-            this.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Set Icon", null, setIcons));
+            this.ContextMenuStrip.Items.Add("Set Icon", null, ContextMenu_File);
+            this.ContextMenuStrip.Items.Add("Dublicate", null, ContextMenu_Dublicate);
             this.ContextMenuStrip.Items.Add("Delete", null, ContextMenu_Delete);
             
             label.TextAlign = ContentAlignment.MiddleCenter;
@@ -69,11 +65,6 @@ namespace DnD_Map_Maker
             label.Text = newEntityName;
         }
         
-        private void ContextMenu_Preset(object? sender, EventArgs e)
-        {
-            
-        }
-        
         private void ContextMenu_File(object? sender, EventArgs e)
         {
             m.OpenFile.InitialDirectory = @"Resources";
@@ -86,11 +77,17 @@ namespace DnD_Map_Maker
             }
 
         }
-
+        private void ContextMenu_Dublicate(object? sender, EventArgs e)
+        {
+            Entity newEntity = new Entity(Location.X, Location.Y, m.size, m.size, label.Text, imagePath, m);
+            m.Controls.Add(newEntity);
+            m.entities.Add(this);
+        }
         private void ContextMenu_Delete(object? sender, EventArgs e)
         {
             m.Controls.Remove(label);
             m.Controls.Remove(this);
+            m.entities.Remove(this);
         }
 
         private void MouseDownHandler(object? sender, MouseEventArgs e)

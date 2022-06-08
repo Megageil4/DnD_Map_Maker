@@ -22,7 +22,7 @@ namespace DnD_Map_Maker
         private bool isUsingPencil = false; // Boolean to check if the user is using the pencil
         private bool isUsingEraser = false; // Boolean to check if the user is using the eraser
         private bool drawn = false; // Boolean to check if the user has drawn something
-        private List<Entity> entities = new List<Entity>();
+        public List<Entity> entities = new List<Entity>();
 
 
         private void Form1_Paint(object sender, PaintEventArgs e) // When Form1 gets drawn
@@ -391,7 +391,21 @@ namespace DnD_Map_Maker
                 PenButton.BackColor = MenuPanel.BackColor;
             }
         }
-        
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "This is a simple map editor for D&D 5e.\n\n" +
+                "The map is made up of blocks.\n" +
+                "Blocks are placed by left clicking on the map.\n" +
+                "Blocks can be removed by right clicking on the map.\n" +
+                "Entity can be placed by clicken the \"+\" button.\n" +
+                "Entities can be removed by right clicking on it and pressing delete.\n" +
+                "The map can be saved by pressing the \"Save\" button.\n" +
+                "The map can be loaded by pressing the \"Load\" button.\n" +
+                "The map can be reset by pressing the \"New\" button.\n", "Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         // !!DO NOT OPEN THIS!! It's for your sake
         #region Please never open and ignore the next ~200 lines
         private void paladinToolStripMenuItem_Click(object sender, EventArgs e)
@@ -598,6 +612,15 @@ namespace DnD_Map_Maker
         }
 
         #endregion
-        
+
+        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Write a Info Dialog with disclaimer
+            MessageBox.Show("This is a simple editor for D&D 5e made by Megageil4 with the help of Norrox123\r\n\r\n" +
+                "This program is free software: you can redistribute it and/or modify it.\n" +
+                "This program is distributed in the hope that it will be useful,\n" +
+                "but WITHOUT ANY WARRANTY; without even the implied warranty of\n" +
+                "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

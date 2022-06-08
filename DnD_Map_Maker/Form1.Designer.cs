@@ -59,6 +59,7 @@
             this.OpenFile = new System.Windows.Forms.OpenFileDialog();
             this.SaveFile = new System.Windows.Forms.SaveFileDialog();
             this.AddEntityContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.newToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paladinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.figtherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,7 +93,6 @@
             this.customToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.vogelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.EntityContextMenu.SuspendLayout();
@@ -253,26 +253,28 @@
             // gitHubToolStripMenuItem
             // 
             this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
-            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gitHubToolStripMenuItem.Text = "GitHub";
             this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.gitHubToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // infoToolStripMenuItem
             // 
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            this.infoToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.infoToolStripMenuItem.Text = "Info";
+            this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // EntityContextMenu
@@ -330,6 +332,7 @@
             // 
             // AddEntityContextMenu
             // 
+            this.AddEntityContextMenu.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.AddEntityContextMenu.ImageScalingSize = new System.Drawing.Size(40, 40);
             this.AddEntityContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem1,
@@ -338,7 +341,14 @@
             this.otherToolStripMenuItem,
             this.customToolStripMenuItem});
             this.AddEntityContextMenu.Name = "contextMenuStrip1";
-            this.AddEntityContextMenu.Size = new System.Drawing.Size(181, 136);
+            this.AddEntityContextMenu.Size = new System.Drawing.Size(152, 164);
+            // 
+            // newToolStripMenuItem1
+            // 
+            this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
+            this.newToolStripMenuItem1.Size = new System.Drawing.Size(151, 32);
+            this.newToolStripMenuItem1.Text = "New";
+            this.newToolStripMenuItem1.Click += new System.EventHandler(this.newToolStripMenuItem1_Click);
             // 
             // playerToolStripMenuItem
             // 
@@ -356,15 +366,15 @@
             this.warlockToolStripMenuItem,
             this.wizardToolStripMenuItem});
             this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
-            this.playerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(151, 32);
             this.playerToolStripMenuItem.Text = "Player";
             // 
             // paladinToolStripMenuItem
             // 
-            this.paladinToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.paladinToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.paladinToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Paladin;
             this.paladinToolStripMenuItem.Name = "paladinToolStripMenuItem";
-            this.paladinToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.paladinToolStripMenuItem.Size = new System.Drawing.Size(184, 46);
             this.paladinToolStripMenuItem.Text = "Paladin";
             this.paladinToolStripMenuItem.Click += new System.EventHandler(this.paladinToolStripMenuItem_Click);
             // 
@@ -372,7 +382,7 @@
             // 
             this.figtherToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Fighter;
             this.figtherToolStripMenuItem.Name = "figtherToolStripMenuItem";
-            this.figtherToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.figtherToolStripMenuItem.Size = new System.Drawing.Size(184, 46);
             this.figtherToolStripMenuItem.Text = "Figther";
             this.figtherToolStripMenuItem.Click += new System.EventHandler(this.figtherToolStripMenuItem_Click);
             // 
@@ -380,7 +390,7 @@
             // 
             this.clericToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Cleric;
             this.clericToolStripMenuItem.Name = "clericToolStripMenuItem";
-            this.clericToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.clericToolStripMenuItem.Size = new System.Drawing.Size(184, 46);
             this.clericToolStripMenuItem.Text = "Cleric";
             this.clericToolStripMenuItem.Click += new System.EventHandler(this.clericToolStripMenuItem_Click);
             // 
@@ -388,7 +398,7 @@
             // 
             this.babaToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Barbarian;
             this.babaToolStripMenuItem.Name = "babaToolStripMenuItem";
-            this.babaToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.babaToolStripMenuItem.Size = new System.Drawing.Size(184, 46);
             this.babaToolStripMenuItem.Text = "Babarian";
             this.babaToolStripMenuItem.Click += new System.EventHandler(this.babaToolStripMenuItem_Click);
             // 
@@ -396,7 +406,7 @@
             // 
             this.rogueToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Rogue;
             this.rogueToolStripMenuItem.Name = "rogueToolStripMenuItem";
-            this.rogueToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.rogueToolStripMenuItem.Size = new System.Drawing.Size(184, 46);
             this.rogueToolStripMenuItem.Text = "Rogue";
             this.rogueToolStripMenuItem.Click += new System.EventHandler(this.rogueToolStripMenuItem_Click);
             // 
@@ -404,7 +414,7 @@
             // 
             this.monkToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Monk;
             this.monkToolStripMenuItem.Name = "monkToolStripMenuItem";
-            this.monkToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.monkToolStripMenuItem.Size = new System.Drawing.Size(184, 46);
             this.monkToolStripMenuItem.Text = "Monk";
             this.monkToolStripMenuItem.Click += new System.EventHandler(this.monkToolStripMenuItem_Click);
             // 
@@ -412,7 +422,7 @@
             // 
             this.rangerToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Ranger;
             this.rangerToolStripMenuItem.Name = "rangerToolStripMenuItem";
-            this.rangerToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.rangerToolStripMenuItem.Size = new System.Drawing.Size(184, 46);
             this.rangerToolStripMenuItem.Text = "Ranger";
             this.rangerToolStripMenuItem.Click += new System.EventHandler(this.rangerToolStripMenuItem_Click);
             // 
@@ -420,7 +430,7 @@
             // 
             this.bardToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Bard;
             this.bardToolStripMenuItem.Name = "bardToolStripMenuItem";
-            this.bardToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.bardToolStripMenuItem.Size = new System.Drawing.Size(184, 46);
             this.bardToolStripMenuItem.Text = "Bard";
             this.bardToolStripMenuItem.Click += new System.EventHandler(this.bardToolStripMenuItem_Click);
             // 
@@ -428,7 +438,7 @@
             // 
             this.druidToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Druid;
             this.druidToolStripMenuItem.Name = "druidToolStripMenuItem";
-            this.druidToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.druidToolStripMenuItem.Size = new System.Drawing.Size(184, 46);
             this.druidToolStripMenuItem.Text = "Druid";
             this.druidToolStripMenuItem.Click += new System.EventHandler(this.druidToolStripMenuItem_Click);
             // 
@@ -436,7 +446,7 @@
             // 
             this.sorcererToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Sorcerer;
             this.sorcererToolStripMenuItem.Name = "sorcererToolStripMenuItem";
-            this.sorcererToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.sorcererToolStripMenuItem.Size = new System.Drawing.Size(184, 46);
             this.sorcererToolStripMenuItem.Text = "Sorcerer";
             this.sorcererToolStripMenuItem.Click += new System.EventHandler(this.sorcererToolStripMenuItem_Click);
             // 
@@ -444,7 +454,7 @@
             // 
             this.warlockToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Warlock;
             this.warlockToolStripMenuItem.Name = "warlockToolStripMenuItem";
-            this.warlockToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.warlockToolStripMenuItem.Size = new System.Drawing.Size(184, 46);
             this.warlockToolStripMenuItem.Text = "Warlock";
             this.warlockToolStripMenuItem.Click += new System.EventHandler(this.warlockToolStripMenuItem_Click);
             // 
@@ -452,7 +462,7 @@
             // 
             this.wizardToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Wizard;
             this.wizardToolStripMenuItem.Name = "wizardToolStripMenuItem";
-            this.wizardToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.wizardToolStripMenuItem.Size = new System.Drawing.Size(184, 46);
             this.wizardToolStripMenuItem.Text = "Wizard";
             this.wizardToolStripMenuItem.Click += new System.EventHandler(this.wizardToolStripMenuItem_Click);
             // 
@@ -468,14 +478,14 @@
             this.boss2ToolStripMenuItem,
             this.dragonToolStripMenuItem});
             this.enemyToolStripMenuItem.Name = "enemyToolStripMenuItem";
-            this.enemyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.enemyToolStripMenuItem.Size = new System.Drawing.Size(151, 32);
             this.enemyToolStripMenuItem.Text = "Enemy";
             // 
             // enemy1ToolStripMenuItem
             // 
             this.enemy1ToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Enemy1;
             this.enemy1ToolStripMenuItem.Name = "enemy1ToolStripMenuItem";
-            this.enemy1ToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.enemy1ToolStripMenuItem.Size = new System.Drawing.Size(177, 46);
             this.enemy1ToolStripMenuItem.Text = "Enemy1";
             this.enemy1ToolStripMenuItem.Click += new System.EventHandler(this.enemy1ToolStripMenuItem_Click);
             // 
@@ -483,7 +493,7 @@
             // 
             this.enemy2ToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Enemy2;
             this.enemy2ToolStripMenuItem.Name = "enemy2ToolStripMenuItem";
-            this.enemy2ToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.enemy2ToolStripMenuItem.Size = new System.Drawing.Size(177, 46);
             this.enemy2ToolStripMenuItem.Text = "Enemy2";
             this.enemy2ToolStripMenuItem.Click += new System.EventHandler(this.enemy2ToolStripMenuItem_Click);
             // 
@@ -491,7 +501,7 @@
             // 
             this.enemy3ToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Enemy3;
             this.enemy3ToolStripMenuItem.Name = "enemy3ToolStripMenuItem";
-            this.enemy3ToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.enemy3ToolStripMenuItem.Size = new System.Drawing.Size(177, 46);
             this.enemy3ToolStripMenuItem.Text = "Enemy3";
             this.enemy3ToolStripMenuItem.Click += new System.EventHandler(this.enemy3ToolStripMenuItem_Click);
             // 
@@ -499,7 +509,7 @@
             // 
             this.enemy4ToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Enemy4;
             this.enemy4ToolStripMenuItem.Name = "enemy4ToolStripMenuItem";
-            this.enemy4ToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.enemy4ToolStripMenuItem.Size = new System.Drawing.Size(177, 46);
             this.enemy4ToolStripMenuItem.Text = "Enemy4";
             this.enemy4ToolStripMenuItem.Click += new System.EventHandler(this.enemy4ToolStripMenuItem_Click);
             // 
@@ -507,7 +517,7 @@
             // 
             this.enemy5ToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Basic_Bad_Bitch;
             this.enemy5ToolStripMenuItem.Name = "enemy5ToolStripMenuItem";
-            this.enemy5ToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.enemy5ToolStripMenuItem.Size = new System.Drawing.Size(177, 46);
             this.enemy5ToolStripMenuItem.Text = "Enemy5";
             this.enemy5ToolStripMenuItem.Click += new System.EventHandler(this.enemy5ToolStripMenuItem_Click);
             // 
@@ -515,7 +525,7 @@
             // 
             this.boss1ToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Boss1;
             this.boss1ToolStripMenuItem.Name = "boss1ToolStripMenuItem";
-            this.boss1ToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.boss1ToolStripMenuItem.Size = new System.Drawing.Size(177, 46);
             this.boss1ToolStripMenuItem.Text = "Boss1";
             this.boss1ToolStripMenuItem.Click += new System.EventHandler(this.boss1ToolStripMenuItem_Click);
             // 
@@ -523,7 +533,7 @@
             // 
             this.boss2ToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Boss2;
             this.boss2ToolStripMenuItem.Name = "boss2ToolStripMenuItem";
-            this.boss2ToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.boss2ToolStripMenuItem.Size = new System.Drawing.Size(177, 46);
             this.boss2ToolStripMenuItem.Text = "Boss2";
             this.boss2ToolStripMenuItem.Click += new System.EventHandler(this.boss2ToolStripMenuItem_Click);
             // 
@@ -531,7 +541,7 @@
             // 
             this.dragonToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Rawwwww;
             this.dragonToolStripMenuItem.Name = "dragonToolStripMenuItem";
-            this.dragonToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.dragonToolStripMenuItem.Size = new System.Drawing.Size(177, 46);
             this.dragonToolStripMenuItem.Text = "Dragon";
             this.dragonToolStripMenuItem.Click += new System.EventHandler(this.dragonToolStripMenuItem_Click);
             // 
@@ -544,14 +554,14 @@
             this.bonfireToolStripMenuItem,
             this.wellToolStripMenuItem});
             this.otherToolStripMenuItem.Name = "otherToolStripMenuItem";
-            this.otherToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.otherToolStripMenuItem.Size = new System.Drawing.Size(151, 32);
             this.otherToolStripMenuItem.Text = "Other";
             // 
             // door1ToolStripMenuItem
             // 
             this.door1ToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Door;
             this.door1ToolStripMenuItem.Name = "door1ToolStripMenuItem";
-            this.door1ToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.door1ToolStripMenuItem.Size = new System.Drawing.Size(170, 46);
             this.door1ToolStripMenuItem.Text = "Door1";
             this.door1ToolStripMenuItem.Click += new System.EventHandler(this.door1ToolStripMenuItem_Click);
             // 
@@ -559,7 +569,7 @@
             // 
             this.dorr2ToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.You_expectet_a_Joke__but_it_was_me_Dio1;
             this.dorr2ToolStripMenuItem.Name = "dorr2ToolStripMenuItem";
-            this.dorr2ToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.dorr2ToolStripMenuItem.Size = new System.Drawing.Size(170, 46);
             this.dorr2ToolStripMenuItem.Text = "Door2";
             this.dorr2ToolStripMenuItem.Click += new System.EventHandler(this.dorr2ToolStripMenuItem_Click);
             // 
@@ -567,7 +577,7 @@
             // 
             this.stairsToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Stairs;
             this.stairsToolStripMenuItem.Name = "stairsToolStripMenuItem";
-            this.stairsToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.stairsToolStripMenuItem.Size = new System.Drawing.Size(170, 46);
             this.stairsToolStripMenuItem.Text = "Stairs";
             this.stairsToolStripMenuItem.Click += new System.EventHandler(this.stairsToolStripMenuItem_Click);
             // 
@@ -575,7 +585,7 @@
             // 
             this.bonfireToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Take_a_rest1;
             this.bonfireToolStripMenuItem.Name = "bonfireToolStripMenuItem";
-            this.bonfireToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.bonfireToolStripMenuItem.Size = new System.Drawing.Size(170, 46);
             this.bonfireToolStripMenuItem.Text = "Bonfire";
             this.bonfireToolStripMenuItem.Click += new System.EventHandler(this.bonfireToolStripMenuItem_Click);
             // 
@@ -583,7 +593,7 @@
             // 
             this.wellToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Get_Wel_soon1;
             this.wellToolStripMenuItem.Name = "wellToolStripMenuItem";
-            this.wellToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.wellToolStripMenuItem.Size = new System.Drawing.Size(170, 46);
             this.wellToolStripMenuItem.Text = "Well";
             this.wellToolStripMenuItem.Click += new System.EventHandler(this.wellToolStripMenuItem_Click);
             // 
@@ -595,14 +605,14 @@
             this.vogelToolStripMenuItem,
             this.gayToolStripMenuItem});
             this.customToolStripMenuItem.Name = "customToolStripMenuItem";
-            this.customToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.customToolStripMenuItem.Size = new System.Drawing.Size(151, 32);
             this.customToolStripMenuItem.Text = "Custom";
             // 
             // johanToolStripMenuItem
             // 
             this.johanToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.b_in_Hans_steht_für_balanced;
             this.johanToolStripMenuItem.Name = "johanToolStripMenuItem";
-            this.johanToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.johanToolStripMenuItem.Size = new System.Drawing.Size(199, 46);
             this.johanToolStripMenuItem.Text = "Balanced";
             this.johanToolStripMenuItem.Click += new System.EventHandler(this.johanToolStripMenuItem_Click);
             // 
@@ -610,7 +620,7 @@
             // 
             this.customToolStripMenuItem1.Image = global::DnD_Map_Maker.Properties.Resources.Basic_Bitch;
             this.customToolStripMenuItem1.Name = "customToolStripMenuItem1";
-            this.customToolStripMenuItem1.Size = new System.Drawing.Size(204, 46);
+            this.customToolStripMenuItem1.Size = new System.Drawing.Size(199, 46);
             this.customToolStripMenuItem1.Text = "Basic Bitch";
             this.customToolStripMenuItem1.Click += new System.EventHandler(this.customToolStripMenuItem1_Click);
             // 
@@ -618,7 +628,7 @@
             // 
             this.vogelToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Daniel_and_Dragons;
             this.vogelToolStripMenuItem.Name = "vogelToolStripMenuItem";
-            this.vogelToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.vogelToolStripMenuItem.Size = new System.Drawing.Size(199, 46);
             this.vogelToolStripMenuItem.Text = "Vogel";
             this.vogelToolStripMenuItem.Click += new System.EventHandler(this.vogelToolStripMenuItem_Click);
             // 
@@ -626,16 +636,9 @@
             // 
             this.gayToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Its_ya_boy;
             this.gayToolStripMenuItem.Name = "gayToolStripMenuItem";
-            this.gayToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.gayToolStripMenuItem.Size = new System.Drawing.Size(199, 46);
             this.gayToolStripMenuItem.Text = "Gay";
             this.gayToolStripMenuItem.Click += new System.EventHandler(this.gayToolStripMenuItem_Click);
-            // 
-            // newToolStripMenuItem1
-            // 
-            this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
-            this.newToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.newToolStripMenuItem1.Text = "New";
-            this.newToolStripMenuItem1.Click += new System.EventHandler(this.newToolStripMenuItem1_Click);
             // 
             // MainForm
             // 
