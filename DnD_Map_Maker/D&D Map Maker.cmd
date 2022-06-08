@@ -1,1 +1,0 @@
-@start "" ".\bin\Debug\net6.0-windows\DnD_Map_Maker.exe"
