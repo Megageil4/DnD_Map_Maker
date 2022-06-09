@@ -21,6 +21,7 @@ namespace DnD_Map_Maker
         public bool wallBlockingPlayer = true; // Boolean to check if the player can walk through walls
         private bool isUsingPencil = false; // Boolean to check if the user is using the pencil
         private bool isUsingEraser = false; // Boolean to check if the user is using the eraser
+        private bool turnOrderActive = false; // Boolean to check if the user is using the turn order
         private bool drawn = false; // Boolean to check if the user has drawn something
         public List<Entity> entities = new List<Entity>();
 
@@ -322,6 +323,7 @@ namespace DnD_Map_Maker
                             entities.Clear();
                             entry.ExtractToFile(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapentities", true);
                             string[] entitiyArray = File.ReadAllLines(Environment.GetEnvironmentVariable("TEMP") + @"\dndmapentities");
+                            TurnOrder.Items.Clear();
                             foreach (var en in entitiyArray)
                             {
                                 string[] entity = en.Split(';');
@@ -332,7 +334,8 @@ namespace DnD_Map_Maker
                                     int.Parse(entity[3]),
                                     entity[4],
                                     entity[5],
-                                    this));
+                                    this,
+                                    int.Parse(entity[6])));
                                 Controls.Add(entities[entities.Count - 1]);
                             }
                         }
@@ -359,7 +362,7 @@ namespace DnD_Map_Maker
                 this.MainForm_SizeChanged(this, new EventArgs());
             }
         }
-
+        
         private void PenButton_Click(object sender, EventArgs e)
         {
             if (isUsingPencil)
@@ -406,6 +409,16 @@ namespace DnD_Map_Maker
                 "The map can be reset by pressing the \"New\" button.\n", "Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Write a Info Dialog with disclaimer
+            MessageBox.Show("This is a simple editor for D&D 5e made by Megageil4 with the help of Norrox123\r\n\r\n" +
+                "This program is free software: you can redistribute it and/or modify it.\n" +
+                "This program is distributed in the hope that it will be useful,\n" +
+                "but WITHOUT ANY WARRANTY; without even the implied warranty of\n" +
+                "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        
         // !!DO NOT OPEN THIS!! It's for your sake
         #region Please never open and ignore the next ~200 lines
         private void paladinToolStripMenuItem_Click(object sender, EventArgs e)
@@ -613,14 +626,22 @@ namespace DnD_Map_Maker
 
         #endregion
 
-        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void iconButton1_Click(object sender, EventArgs e)
         {
-            // Write a Info Dialog with disclaimer
-            MessageBox.Show("This is a simple editor for D&D 5e made by Megageil4 with the help of Norrox123\r\n\r\n" +
-                "This program is free software: you can redistribute it and/or modify it.\n" +
-                "This program is distributed in the hope that it will be useful,\n" +
-                "but WITHOUT ANY WARRANTY; without even the implied warranty of\n" +
-                "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (turnOrderActive)
+            {
+                turnOrderActive = false;
+                ShowTurnOrder.BackColor = MenuPanel.BackColor;
+                TurnOrder.Visible = false;
+                TurnOrder.Enabled = false;
+            }
+            else
+            {
+                turnOrderActive = true;
+                ShowTurnOrder.BackColor = Color.LightGray;
+                TurnOrder.Visible = true;
+                TurnOrder.Enabled = true;
+            }
         }
     }
 }

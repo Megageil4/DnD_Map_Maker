@@ -13,7 +13,8 @@ namespace DnD_Map_Maker
         private MainForm m;
         private Label label = new Label();
         private string imagePath = "";
-        public Entity(int x, int y, int width, int height, string name, string imgPath,MainForm mainForm)
+        public int PositionInTurnOrder { get; set; }
+        public Entity(int x, int y, int width, int height, string name, string imgPath,MainForm mainForm, int posInTurnOrder = 0)
         {
             this.m = mainForm;
             this.Location = new Point(x, y);
@@ -32,6 +33,7 @@ namespace DnD_Map_Maker
             this.ContextMenuStrip = new ContextMenuStrip();
             this.ContextMenuStrip.Items.Add("Show Name", null, ContextMenu_ShowName);
             this.ContextMenuStrip.Items.Add("Set Name",null,ContextMenu_SetName);
+            this.ContextMenuStrip.Items.Add("Set Turn Order", null, ContextMenu_SetTurnPos);
             this.ContextMenuStrip.Items.Add("Set Icon", null, ContextMenu_File);
             this.ContextMenuStrip.Items.Add("Dublicate", null, ContextMenu_Dublicate);
             this.ContextMenuStrip.Items.Add("Delete", null, ContextMenu_Delete);
@@ -41,6 +43,10 @@ namespace DnD_Map_Maker
             label.Text = name;
             label.Width = m.size * 2;
             label.Location = new Point(Location.X - m.size / 2, Location.Y - m.size / 2);
+
+            PositionInTurnOrder = posInTurnOrder;
+            
+            mainForm.TurnOrder.Items.Add($"{PositionInTurnOrder} {name}");
         }
         
         private void ContextMenu_ShowName(object? sender, EventArgs e)
@@ -64,7 +70,23 @@ namespace DnD_Map_Maker
             string newEntityName = Microsoft.VisualBasic.Interaction.InputBox("Set new name for entity", "New name");
             label.Text = newEntityName;
         }
-        
+        private void ContextMenu_SetTurnPos(object? sender, EventArgs e)
+        {
+            string newEntityPos = Microsoft.VisualBasic.Interaction.InputBox("Set new position in turn order for entity", "Position");
+            try
+            {
+                int oldPos = PositionInTurnOrder;
+                PositionInTurnOrder = int.Parse(newEntityPos);
+                m.TurnOrder.Items.Remove($"{oldPos} {label.Text}");
+            }
+            catch
+            {
+
+                MessageBox.Show("Please enter a valid Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            m.TurnOrder.Items.Add($"{PositionInTurnOrder} {label.Text}");
+        }
+
         private void ContextMenu_File(object? sender, EventArgs e)
         {
             m.OpenFile.InitialDirectory = @"Resources";
@@ -79,7 +101,7 @@ namespace DnD_Map_Maker
         }
         private void ContextMenu_Dublicate(object? sender, EventArgs e)
         {
-            Entity newEntity = new Entity(Location.X, Location.Y, m.size, m.size, label.Text, imagePath, m);
+            Entity newEntity = new Entity(Location.X, Location.Y, m.size, m.size, label.Text, imagePath, m, PositionInTurnOrder);
             m.Controls.Add(newEntity);
             m.entities.Add(this);
         }
@@ -88,6 +110,7 @@ namespace DnD_Map_Maker
             m.Controls.Remove(label);
             m.Controls.Remove(this);
             m.entities.Remove(this);
+            m.TurnOrder.Items.Remove($"{PositionInTurnOrder} {label.Text}");
         }
 
         private void MouseDownHandler(object? sender, MouseEventArgs e)
@@ -127,7 +150,7 @@ namespace DnD_Map_Maker
         }
         public override string ToString()
         {
-            return $"{Location.X};{Location.Y};{m.size};{m.size};{label.Text};{imagePath}";
+            return $"{Location.X};{Location.Y};{m.size};{m.size};{label.Text};{imagePath};{PositionInTurnOrder}";
         }
     }
 }

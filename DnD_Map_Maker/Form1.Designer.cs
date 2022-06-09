@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MenuPanel = new System.Windows.Forms.Panel();
+            this.ShowTurnOrder = new FontAwesome.Sharp.IconButton();
             this.AddEntity = new FontAwesome.Sharp.IconButton();
             this.EraserButton = new FontAwesome.Sharp.IconButton();
             this.PenButton = new FontAwesome.Sharp.IconButton();
@@ -93,6 +94,11 @@
             this.customToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.vogelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TurnOrder = new System.Windows.Forms.ListBox();
+            this.NewEntityTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.PenTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.EraserTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.TurnOrderTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.MenuPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.EntityContextMenu.SuspendLayout();
@@ -102,6 +108,7 @@
             // MenuPanel
             // 
             this.MenuPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.MenuPanel.Controls.Add(this.ShowTurnOrder);
             this.MenuPanel.Controls.Add(this.AddEntity);
             this.MenuPanel.Controls.Add(this.EraserButton);
             this.MenuPanel.Controls.Add(this.PenButton);
@@ -110,6 +117,22 @@
             this.MenuPanel.Name = "MenuPanel";
             this.MenuPanel.Size = new System.Drawing.Size(100, 613);
             this.MenuPanel.TabIndex = 2;
+            // 
+            // ShowTurnOrder
+            // 
+            this.ShowTurnOrder.FlatAppearance.BorderSize = 0;
+            this.ShowTurnOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ShowTurnOrder.IconChar = FontAwesome.Sharp.IconChar.SortNumericDown;
+            this.ShowTurnOrder.IconColor = System.Drawing.Color.Black;
+            this.ShowTurnOrder.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ShowTurnOrder.IconSize = 50;
+            this.ShowTurnOrder.Location = new System.Drawing.Point(24, 262);
+            this.ShowTurnOrder.Name = "ShowTurnOrder";
+            this.ShowTurnOrder.Size = new System.Drawing.Size(54, 52);
+            this.ShowTurnOrder.TabIndex = 5;
+            this.TurnOrderTooltip.SetToolTip(this.ShowTurnOrder, "Shows the turn order when active");
+            this.ShowTurnOrder.UseVisualStyleBackColor = true;
+            this.ShowTurnOrder.Click += new System.EventHandler(this.iconButton1_Click);
             // 
             // AddEntity
             // 
@@ -122,6 +145,7 @@
             this.AddEntity.Name = "AddEntity";
             this.AddEntity.Size = new System.Drawing.Size(54, 49);
             this.AddEntity.TabIndex = 4;
+            this.NewEntityTooltip.SetToolTip(this.AddEntity, "Add new entity\r\n");
             this.AddEntity.UseVisualStyleBackColor = true;
             this.AddEntity.MouseDown += new System.Windows.Forms.MouseEventHandler(this.AddEntity_MouseDown);
             // 
@@ -136,6 +160,7 @@
             this.EraserButton.Name = "EraserButton";
             this.EraserButton.Size = new System.Drawing.Size(54, 51);
             this.EraserButton.TabIndex = 3;
+            this.EraserTooltip.SetToolTip(this.EraserButton, "When active you can delete your drawings");
             this.EraserButton.UseVisualStyleBackColor = true;
             this.EraserButton.Click += new System.EventHandler(this.EraserButton_Click);
             // 
@@ -150,6 +175,7 @@
             this.PenButton.Name = "PenButton";
             this.PenButton.Size = new System.Drawing.Size(54, 49);
             this.PenButton.TabIndex = 2;
+            this.PenTooltip.SetToolTip(this.PenButton, "When active you can draw on the map");
             this.PenButton.UseVisualStyleBackColor = true;
             this.PenButton.Click += new System.EventHandler(this.PenButton_Click);
             // 
@@ -183,22 +209,25 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.ToolTipText = "Creats a new file";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.ToolTipText = "Creates a new .dndmap file of the current map";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.ToolTipText = "Load an existing .dndmap file";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // gridToolStripMenuItem
@@ -216,6 +245,7 @@
             this.chnageSizeToolStripMenuItem.Name = "chnageSizeToolStripMenuItem";
             this.chnageSizeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.chnageSizeToolStripMenuItem.Text = "Change Size";
+            this.chnageSizeToolStripMenuItem.ToolTipText = "Changes the gird size";
             // 
             // modeToolStripMenuItem
             // 
@@ -225,17 +255,18 @@
             this.modeToolStripMenuItem.Name = "modeToolStripMenuItem";
             this.modeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.modeToolStripMenuItem.Text = "Mode";
+            this.modeToolStripMenuItem.ToolTipText = "Changes the display mode of the grid";
             // 
             // squareToolStripMenuItem
             // 
             this.squareToolStripMenuItem.Name = "squareToolStripMenuItem";
-            this.squareToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.squareToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.squareToolStripMenuItem.Text = "Square";
             // 
             // hexagonToolStripMenuItem
             // 
             this.hexagonToolStripMenuItem.Name = "hexagonToolStripMenuItem";
-            this.hexagonToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.hexagonToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hexagonToolStripMenuItem.Text = "Hexagon";
             // 
             // extraToolStripMenuItem
@@ -255,6 +286,7 @@
             this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
             this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gitHubToolStripMenuItem.Text = "GitHub";
+            this.gitHubToolStripMenuItem.ToolTipText = "Opens the programs GitHub page";
             this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.gitHubToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -262,6 +294,7 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.ToolTipText = "Shows the help menu";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // infoToolStripMenuItem
@@ -269,13 +302,15 @@
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
             this.infoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.infoToolStripMenuItem.Text = "Info";
+            this.infoToolStripMenuItem.ToolTipText = "Shows the info menu";
             this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.Text = "Settings";
+            this.optionsToolStripMenuItem.ToolTipText = "Opens the settings menu";
             // 
             // EntityContextMenu
             // 
@@ -640,12 +675,43 @@
             this.gayToolStripMenuItem.Text = "Gay";
             this.gayToolStripMenuItem.Click += new System.EventHandler(this.gayToolStripMenuItem_Click);
             // 
+            // TurnOrder
+            // 
+            this.TurnOrder.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TurnOrder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TurnOrder.Dock = System.Windows.Forms.DockStyle.Right;
+            this.TurnOrder.FormattingEnabled = true;
+            this.TurnOrder.ItemHeight = 15;
+            this.TurnOrder.Location = new System.Drawing.Point(881, 24);
+            this.TurnOrder.Name = "TurnOrder";
+            this.TurnOrder.Size = new System.Drawing.Size(210, 613);
+            this.TurnOrder.Sorted = true;
+            this.TurnOrder.TabIndex = 4;
+            this.TurnOrder.Visible = false;
+            // 
+            // NewEntityTooltip
+            // 
+            this.NewEntityTooltip.ToolTipTitle = "Entity";
+            // 
+            // PenTooltip
+            // 
+            this.PenTooltip.ToolTipTitle = "Pen";
+            // 
+            // EraserTooltip
+            // 
+            this.EraserTooltip.ToolTipTitle = "Eraser";
+            // 
+            // TurnOrderTooltip
+            // 
+            this.TurnOrderTooltip.ToolTipTitle = "Turn Order";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1091, 637);
+            this.Controls.Add(this.TurnOrder);
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -730,5 +796,11 @@
         private ToolStripMenuItem vogelToolStripMenuItem;
         private ToolStripMenuItem gayToolStripMenuItem;
         private ToolStripMenuItem newToolStripMenuItem1;
+        private FontAwesome.Sharp.IconButton ShowTurnOrder;
+        public ListBox TurnOrder;
+        private ToolTip NewEntityTooltip;
+        private ToolTip PenTooltip;
+        private ToolTip TurnOrderTooltip;
+        private ToolTip EraserTooltip;
     }
 }
