@@ -99,10 +99,15 @@
             this.PenTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.EraserTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.TurnOrderTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.DrawContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.changeColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.balanced2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.EntityContextMenu.SuspendLayout();
             this.AddEntityContextMenu.SuspendLayout();
+            this.DrawContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuPanel
@@ -177,7 +182,7 @@
             this.PenButton.TabIndex = 2;
             this.PenTooltip.SetToolTip(this.PenButton, "When active you can draw on the map");
             this.PenButton.UseVisualStyleBackColor = true;
-            this.PenButton.Click += new System.EventHandler(this.PenButton_Click);
+            this.PenButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PenButton_MouseDown);
             // 
             // menuStrip1
             // 
@@ -209,7 +214,7 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.ToolTipText = "Creats a new file";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
@@ -217,7 +222,7 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.ToolTipText = "Creates a new .dndmap file of the current map";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
@@ -225,7 +230,7 @@
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.ToolTipText = "Load an existing .dndmap file";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
@@ -260,13 +265,13 @@
             // squareToolStripMenuItem
             // 
             this.squareToolStripMenuItem.Name = "squareToolStripMenuItem";
-            this.squareToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.squareToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.squareToolStripMenuItem.Text = "Square";
             // 
             // hexagonToolStripMenuItem
             // 
             this.hexagonToolStripMenuItem.Name = "hexagonToolStripMenuItem";
-            this.hexagonToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hexagonToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.hexagonToolStripMenuItem.Text = "Hexagon";
             // 
             // extraToolStripMenuItem
@@ -284,7 +289,7 @@
             // gitHubToolStripMenuItem
             // 
             this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
-            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.gitHubToolStripMenuItem.Text = "GitHub";
             this.gitHubToolStripMenuItem.ToolTipText = "Opens the programs GitHub page";
             this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.gitHubToolStripMenuItem_Click);
@@ -292,7 +297,7 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.ToolTipText = "Shows the help menu";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
@@ -300,7 +305,7 @@
             // infoToolStripMenuItem
             // 
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            this.infoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.infoToolStripMenuItem.Text = "Info";
             this.infoToolStripMenuItem.ToolTipText = "Shows the info menu";
             this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
@@ -308,7 +313,7 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.optionsToolStripMenuItem.Text = "Settings";
             this.optionsToolStripMenuItem.ToolTipText = "Opens the settings menu";
             // 
@@ -376,12 +381,12 @@
             this.otherToolStripMenuItem,
             this.customToolStripMenuItem});
             this.AddEntityContextMenu.Name = "contextMenuStrip1";
-            this.AddEntityContextMenu.Size = new System.Drawing.Size(152, 164);
+            this.AddEntityContextMenu.Size = new System.Drawing.Size(181, 186);
             // 
             // newToolStripMenuItem1
             // 
             this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
-            this.newToolStripMenuItem1.Size = new System.Drawing.Size(151, 32);
+            this.newToolStripMenuItem1.Size = new System.Drawing.Size(180, 32);
             this.newToolStripMenuItem1.Text = "New";
             this.newToolStripMenuItem1.Click += new System.EventHandler(this.newToolStripMenuItem1_Click);
             // 
@@ -401,7 +406,7 @@
             this.warlockToolStripMenuItem,
             this.wizardToolStripMenuItem});
             this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
-            this.playerToolStripMenuItem.Size = new System.Drawing.Size(151, 32);
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(180, 32);
             this.playerToolStripMenuItem.Text = "Player";
             // 
             // paladinToolStripMenuItem
@@ -513,7 +518,7 @@
             this.boss2ToolStripMenuItem,
             this.dragonToolStripMenuItem});
             this.enemyToolStripMenuItem.Name = "enemyToolStripMenuItem";
-            this.enemyToolStripMenuItem.Size = new System.Drawing.Size(151, 32);
+            this.enemyToolStripMenuItem.Size = new System.Drawing.Size(180, 32);
             this.enemyToolStripMenuItem.Text = "Enemy";
             // 
             // enemy1ToolStripMenuItem
@@ -589,7 +594,7 @@
             this.bonfireToolStripMenuItem,
             this.wellToolStripMenuItem});
             this.otherToolStripMenuItem.Name = "otherToolStripMenuItem";
-            this.otherToolStripMenuItem.Size = new System.Drawing.Size(151, 32);
+            this.otherToolStripMenuItem.Size = new System.Drawing.Size(180, 32);
             this.otherToolStripMenuItem.Text = "Other";
             // 
             // door1ToolStripMenuItem
@@ -636,18 +641,19 @@
             // 
             this.customToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.johanToolStripMenuItem,
+            this.balanced2ToolStripMenuItem,
             this.customToolStripMenuItem1,
             this.vogelToolStripMenuItem,
             this.gayToolStripMenuItem});
             this.customToolStripMenuItem.Name = "customToolStripMenuItem";
-            this.customToolStripMenuItem.Size = new System.Drawing.Size(151, 32);
+            this.customToolStripMenuItem.Size = new System.Drawing.Size(180, 32);
             this.customToolStripMenuItem.Text = "Custom";
             // 
             // johanToolStripMenuItem
             // 
             this.johanToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.b_in_Hans_steht_für_balanced;
             this.johanToolStripMenuItem.Name = "johanToolStripMenuItem";
-            this.johanToolStripMenuItem.Size = new System.Drawing.Size(199, 46);
+            this.johanToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
             this.johanToolStripMenuItem.Text = "Balanced";
             this.johanToolStripMenuItem.Click += new System.EventHandler(this.johanToolStripMenuItem_Click);
             // 
@@ -655,7 +661,7 @@
             // 
             this.customToolStripMenuItem1.Image = global::DnD_Map_Maker.Properties.Resources.Basic_Bitch;
             this.customToolStripMenuItem1.Name = "customToolStripMenuItem1";
-            this.customToolStripMenuItem1.Size = new System.Drawing.Size(199, 46);
+            this.customToolStripMenuItem1.Size = new System.Drawing.Size(204, 46);
             this.customToolStripMenuItem1.Text = "Basic Bitch";
             this.customToolStripMenuItem1.Click += new System.EventHandler(this.customToolStripMenuItem1_Click);
             // 
@@ -663,7 +669,7 @@
             // 
             this.vogelToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Daniel_and_Dragons;
             this.vogelToolStripMenuItem.Name = "vogelToolStripMenuItem";
-            this.vogelToolStripMenuItem.Size = new System.Drawing.Size(199, 46);
+            this.vogelToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
             this.vogelToolStripMenuItem.Text = "Vogel";
             this.vogelToolStripMenuItem.Click += new System.EventHandler(this.vogelToolStripMenuItem_Click);
             // 
@@ -671,7 +677,7 @@
             // 
             this.gayToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Its_ya_boy;
             this.gayToolStripMenuItem.Name = "gayToolStripMenuItem";
-            this.gayToolStripMenuItem.Size = new System.Drawing.Size(199, 46);
+            this.gayToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
             this.gayToolStripMenuItem.Text = "Gay";
             this.gayToolStripMenuItem.Click += new System.EventHandler(this.gayToolStripMenuItem_Click);
             // 
@@ -680,8 +686,9 @@
             this.TurnOrder.BackColor = System.Drawing.Color.WhiteSmoke;
             this.TurnOrder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TurnOrder.Dock = System.Windows.Forms.DockStyle.Right;
+            this.TurnOrder.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TurnOrder.FormattingEnabled = true;
-            this.TurnOrder.ItemHeight = 15;
+            this.TurnOrder.ItemHeight = 28;
             this.TurnOrder.Location = new System.Drawing.Point(881, 24);
             this.TurnOrder.Name = "TurnOrder";
             this.TurnOrder.Size = new System.Drawing.Size(210, 613);
@@ -705,6 +712,36 @@
             // 
             this.TurnOrderTooltip.ToolTipTitle = "Turn Order";
             // 
+            // DrawContextMenu
+            // 
+            this.DrawContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changeColorToolStripMenuItem,
+            this.changeSizeToolStripMenuItem});
+            this.DrawContextMenu.Name = "DrawContextMenu";
+            this.DrawContextMenu.Size = new System.Drawing.Size(146, 48);
+            // 
+            // changeColorToolStripMenuItem
+            // 
+            this.changeColorToolStripMenuItem.Name = "changeColorToolStripMenuItem";
+            this.changeColorToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.changeColorToolStripMenuItem.Text = "Change color";
+            this.changeColorToolStripMenuItem.Click += new System.EventHandler(this.changeColorToolStripMenuItem_Click);
+            // 
+            // changeSizeToolStripMenuItem
+            // 
+            this.changeSizeToolStripMenuItem.Name = "changeSizeToolStripMenuItem";
+            this.changeSizeToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.changeSizeToolStripMenuItem.Text = "Change size";
+            this.changeSizeToolStripMenuItem.Click += new System.EventHandler(this.changeSizeToolStripMenuItem_Click);
+            // 
+            // balanced2ToolStripMenuItem
+            // 
+            this.balanced2ToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.b_in_Hans_steht_fur_balanced;
+            this.balanced2ToolStripMenuItem.Name = "balanced2ToolStripMenuItem";
+            this.balanced2ToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.balanced2ToolStripMenuItem.Text = "Balanced2";
+            this.balanced2ToolStripMenuItem.Click += new System.EventHandler(this.balanced2ToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -727,6 +764,7 @@
             this.menuStrip1.PerformLayout();
             this.EntityContextMenu.ResumeLayout(false);
             this.AddEntityContextMenu.ResumeLayout(false);
+            this.DrawContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -802,5 +840,9 @@
         private ToolTip PenTooltip;
         private ToolTip TurnOrderTooltip;
         private ToolTip EraserTooltip;
+        private ContextMenuStrip DrawContextMenu;
+        private ToolStripMenuItem changeColorToolStripMenuItem;
+        private ToolStripMenuItem changeSizeToolStripMenuItem;
+        private ToolStripMenuItem balanced2ToolStripMenuItem;
     }
 }

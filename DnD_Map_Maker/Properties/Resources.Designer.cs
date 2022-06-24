@@ -63,6 +63,16 @@ namespace DnD_Map_Maker.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap b_in_Hans_steht_fur_balanced {
+            get {
+                object obj = ResourceManager.GetObject("b_in_Hans_steht_fur_balanced", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap b_in_Hans_steht_für_balanced {
             get {
                 object obj = ResourceManager.GetObject("b in Hans steht für balanced", resourceCulture);

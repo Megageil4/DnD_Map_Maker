@@ -11,10 +11,10 @@ namespace DnD_Map_Maker
         private bool mouseDown;
         private Point lastLocation;
         private MainForm m;
-        private Label label = new Label();
+        public Label label = new Label();
         private string imagePath = "";
         public int PositionInTurnOrder { get; set; }
-        public Entity(int x, int y, int width, int height, string name, string imgPath,MainForm mainForm, int posInTurnOrder = 0)
+        public Entity(int x, int y, int width, int height, string name, string imgPath, MainForm mainForm, int posInTurnOrder = 0)
         {
             this.m = mainForm;
             this.Location = new Point(x, y);
@@ -28,16 +28,17 @@ namespace DnD_Map_Maker
             imagePath = Path.GetFullPath(imgPath);
             SizeMode = PictureBoxSizeMode.StretchImage;
             BackColor = Color.Transparent;
-            
+
             ContextMenuStrip c = new ContextMenuStrip();
             this.ContextMenuStrip = new ContextMenuStrip();
             this.ContextMenuStrip.Items.Add("Show Name", null, ContextMenu_ShowName);
-            this.ContextMenuStrip.Items.Add("Set Name",null,ContextMenu_SetName);
+            this.ContextMenuStrip.Items.Add("Set Name", null, ContextMenu_SetName);
             this.ContextMenuStrip.Items.Add("Set Turn Order", null, ContextMenu_SetTurnPos);
             this.ContextMenuStrip.Items.Add("Set Icon", null, ContextMenu_File);
+            this.ContextMenuStrip.Items.Add("Set size", null, ContextMenu_SetSize);
             this.ContextMenuStrip.Items.Add("Dublicate", null, ContextMenu_Dublicate);
             this.ContextMenuStrip.Items.Add("Delete", null, ContextMenu_Delete);
-            
+
             label.TextAlign = ContentAlignment.MiddleCenter;
             label.BackColor = Color.Transparent;
             label.Text = name;
@@ -45,17 +46,17 @@ namespace DnD_Map_Maker
             label.Location = new Point(Location.X - m.size / 2, Location.Y - m.size / 2);
 
             PositionInTurnOrder = posInTurnOrder;
-            
+
             mainForm.TurnOrder.Items.Add($"{PositionInTurnOrder} {name}");
         }
-        
+
         private void ContextMenu_ShowName(object? sender, EventArgs e)
         {
             if (m.Controls.Contains(label))
             {
                 m.Controls.Remove(label);
                 ContextMenuStrip.Items.RemoveAt(0);
-                ContextMenuStrip.Items.Insert(0,new ToolStripMenuItem("Show Name",null,ContextMenu_ShowName));
+                ContextMenuStrip.Items.Insert(0, new ToolStripMenuItem("Show Name", null, ContextMenu_ShowName));
             }
             else
             {
@@ -64,7 +65,7 @@ namespace DnD_Map_Maker
                 ContextMenuStrip.Items.Insert(0, new ToolStripMenuItem("Hide Name", null, ContextMenu_ShowName));
             }
         }
-        
+
         private void ContextMenu_SetName(object? sender, EventArgs e)
         {
             string newEntityName = Microsoft.VisualBasic.Interaction.InputBox("Set new name for entity", "New name");
@@ -99,11 +100,28 @@ namespace DnD_Map_Maker
             }
 
         }
+        private void ContextMenu_SetSize(object? sender, EventArgs e)
+        {
+            string newSize = Microsoft.VisualBasic.Interaction.InputBox("Set new size for entity", "Size");
+            try
+            {
+                Width = Width + m.penSize * 3;
+                Height = Height + m.penSize * 3;
+                Width = Width * int.Parse(newSize) - m.penSize * 3;
+                Height = Height * int.Parse(newSize) - m.penSize * 3;
+            }
+            catch
+            {
+
+                MessageBox.Show("Please enter a valid Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void ContextMenu_Dublicate(object? sender, EventArgs e)
         {
             Entity newEntity = new Entity(Location.X, Location.Y, m.size, m.size, label.Text, imagePath, m, PositionInTurnOrder);
             m.Controls.Add(newEntity);
             m.entities.Add(this);
+
         }
         private void ContextMenu_Delete(object? sender, EventArgs e)
         {
@@ -129,7 +147,7 @@ namespace DnD_Map_Maker
             }
         }
 
-        private void MouseMoveHandler(object? sender, MouseEventArgs e) 
+        private void MouseMoveHandler(object? sender, MouseEventArgs e)
         {
             if (mouseDown)
             {

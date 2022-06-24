@@ -23,6 +23,8 @@ namespace DnD_Map_Maker
         private bool isUsingEraser = false; // Boolean to check if the user is using the eraser
         private bool turnOrderActive = false; // Boolean to check if the user is using the turn order
         private bool drawn = false; // Boolean to check if the user has drawn something
+        private Color penColor = Color.Black;
+        private int drawSize = 4;
         public List<Entity> entities = new List<Entity>();
 
 
@@ -48,7 +50,7 @@ namespace DnD_Map_Maker
             {
                 if (isUsingPencil)
                 {
-                    CreateGraphics().FillRectangle(new SolidBrush(Color.Black), e.X, e.Y, 4, 4);
+                    CreateGraphics().FillRectangle(new SolidBrush(penColor), e.X, e.Y, drawSize, drawSize);
                     drawings[e.X, e.Y] = 1;
                     drawn = true;
                 }
@@ -170,7 +172,7 @@ namespace DnD_Map_Maker
                                 newDrawings[x, y] = drawings[x, y];
                                 if (drawings[x, y] == 1)
                                 {
-                                    CreateGraphics().FillRectangle(new SolidBrush(Color.Black), x, y, 4, 4);
+                                    CreateGraphics().FillRectangle(new SolidBrush(penColor), x, y, drawSize, drawSize);
                                 }
                             }
                         }
@@ -197,7 +199,7 @@ namespace DnD_Map_Maker
                         {
                             if (drawings[x, y] == 1)
                             {
-                                CreateGraphics().FillRectangle(new SolidBrush(Color.Black), x, y, 4, 4);
+                                CreateGraphics().FillRectangle(new SolidBrush(penColor), x, y, drawSize, drawSize);
                             }
                         }
                     }
@@ -213,7 +215,7 @@ namespace DnD_Map_Maker
             AddEntity.ContextMenuStrip = AddEntityContextMenu;
             AddEntityContextMenu.Show(AddEntity, new Point(e.X, e.Y));
         }
-        
+
         private void newToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (File.Exists(@"Resources\none.png"))
@@ -228,7 +230,7 @@ namespace DnD_Map_Maker
                 Controls.Add(en);
                 entities.Add(en);
             }
-        }        
+        }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -349,7 +351,7 @@ namespace DnD_Map_Maker
                                 for (int x = 0; x < blocks[y].Length; x++)
                                 {
                                     drawings[x, y] = int.Parse(blocks[y][x].ToString());
-                                    if (!drawn && drawings[x,y] == 1)
+                                    if (!drawn && drawings[x, y] == 1)
                                     {
                                         drawn = true;
                                     }
@@ -362,20 +364,51 @@ namespace DnD_Map_Maker
                 this.MainForm_SizeChanged(this, new EventArgs());
             }
         }
-        
-        private void PenButton_Click(object sender, EventArgs e)
+
+        private void PenButton_MouseDown(object sender, MouseEventArgs e)
         {
-            if (isUsingPencil)
+            if (e.Button == MouseButtons.Left)
             {
-                isUsingPencil = false;
-                PenButton.BackColor = MenuPanel.BackColor;
+                if (isUsingPencil)
+                {
+                    isUsingPencil = false;
+                    PenButton.BackColor = MenuPanel.BackColor;
+                }
+                else
+                {
+                    isUsingPencil = true;
+                    PenButton.BackColor = Color.LightGray;
+                    isUsingEraser = false;
+                    EraserButton.BackColor = MenuPanel.BackColor;
+                }
             }
             else
             {
-                isUsingPencil = true;
-                PenButton.BackColor = Color.LightGray;
-                isUsingEraser = false;
-                EraserButton.BackColor = MenuPanel.BackColor;
+                PenButton.ContextMenuStrip = DrawContextMenu;
+                DrawContextMenu.Show(PenButton, new Point(e.X, e.Y));
+            }
+        }
+
+        private void changeColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog cd = new ColorDialog();
+            if (cd.ShowDialog() == DialogResult.OK)
+            {
+                penColor = cd.Color;
+            }
+        }
+
+        private void changeSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string newSize = Microsoft.VisualBasic.Interaction.InputBox("Set new size for the pen", "Change size");
+            try
+            {
+                drawSize = int.Parse(newSize);
+            }
+            catch
+            {
+
+                MessageBox.Show("Please enter a valid Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -418,105 +451,77 @@ namespace DnD_Map_Maker
                 "but WITHOUT ANY WARRANTY; without even the implied warranty of\n" +
                 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        
+
         // !!DO NOT OPEN THIS!! It's for your sake
         #region Please never open and ignore the next ~200 lines
         private void paladinToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Paladin", @"Resources\Presets\Paladin.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Paladin", "Paladin");
         }
 
         private void figtherToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Figther", @"Resources\Presets\Fighter.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Fighter", "Fighter");
         }
 
         private void clericToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Cleric", @"Resources\Presets\Cleric.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Cleric", "Cleric");
         }
 
         private void babaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Babarian", @"Resources\Presets\Barbarian.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Barbarian", "Barbarian");
         }
 
         private void rogueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Rogue", @"Resources\Presets\Rogue.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Rogue", "Rogue");
         }
 
         private void monkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Monk", @"Resources\Presets\Monk.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Monk", "Monk");
         }
 
         private void rangerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Ranger", @"Resources\Presets\Ranger.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Ranger", "Ranger");
         }
 
         private void bardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Bard", @"Resources\Presets\Bard.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Bard", "Bard");
         }
 
         private void druidToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Druid", @"Resources\Presets\Druid.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Druid", "Druid");
         }
 
         private void sorcererToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Sorcerer", @"Resources\Presets\Sorcerer.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Sorcerer", "Sorcerer");
         }
 
         private void warlockToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Warlock", @"Resources\Presets\Warlock.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Warlock", "Warlock");
         }
 
         private void wizardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Wizard", @"Resources\Presets\Wizard.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Wizard", "Wizard");
         }
 
         private void enemy1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Enemy1", @"Resources\Presets\Enemy1.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Enemy1", "Enemy1");
         }
 
         private void enemy2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Enemy2", @"Resources\Presets\Enemy2.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Enemy2", "Enemy2");
         }
 
         private void enemy3ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -605,7 +610,7 @@ namespace DnD_Map_Maker
 
         private void customToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Entity en = new (153, 53, size, size, "Basic Bitch", @"Resources\Presets\Basic Bitch.png", this);
+            Entity en = new(153, 53, size, size, "Basic Bitch", @"Resources\Presets\Basic Bitch.png", this);
             Controls.Add(en);
             entities.Add(en);
         }
@@ -620,6 +625,12 @@ namespace DnD_Map_Maker
         private void gayToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Entity en = new Entity(153, 53, size, size, "Gay", @"Resources\Presets\Its ya boy.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+        }
+        private void balanced2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Entity en = new Entity(153, 53, size, size, "BalancedTheSequel", @"Resources\Presets\b_in_Hans_steht_fur_balanced.png", this);
             Controls.Add(en);
             entities.Add(en);
         }
@@ -642,6 +653,24 @@ namespace DnD_Map_Maker
                 TurnOrder.Visible = true;
                 TurnOrder.Enabled = true;
             }
+        }
+
+        public void SortTurnOrder()
+        {
+            entities = entities.OrderBy(o => o.PositionInTurnOrder).ToList();
+            TurnOrder.Items.Clear();
+            for (int i = 0; i < entities.Count; i++)
+            {
+                TurnOrder.Items.Add($"{entities[i].PositionInTurnOrder} {entities[i].label.Text}");
+            }
+        }
+
+        public void CreateEntity(string name, string filename)
+        {
+            Entity en = new Entity(153, 53, size, size, name, @$"Resources\Presets\{filename}.png", this);
+            Controls.Add(en);
+            entities.Add(en);
+            SortTurnOrder();
         }
     }
 }
