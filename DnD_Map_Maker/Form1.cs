@@ -26,7 +26,7 @@ namespace DnD_Map_Maker
         private Color penColor = Color.Black;
         private int drawSize = 4;
         public List<Entity> entities = new List<Entity>();
-
+        private bool AscendingSort = true;
 
         private void Form1_Paint(object sender, PaintEventArgs e) // When Form1 gets drawn
         {
@@ -204,6 +204,8 @@ namespace DnD_Map_Maker
                         }
                     }
                 }
+
+                SortButton.Location = new Point(Width - 80, Height - 121);
             }
             catch
             {
@@ -218,18 +220,16 @@ namespace DnD_Map_Maker
 
         private void newToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (File.Exists(@"Resources\none.png"))
-            {
-                Entity en = new Entity(153, 53, size, size, "test1", @"Resources\none.png", this);
-                Controls.Add(en);
-                entities.Add(en);
-            }
-            else
-            {
-                Entity en = new Entity(153, 53, size, size, "test1", @"..\..\..\Resources\none.png", this);
-                Controls.Add(en);
-                entities.Add(en);
-            }
+            //if (File.Exists(@"Resources\none.png"))
+            //{
+            //    Entity en = new Entity(153, 53, size, size, "test1", @"Resources\none.png", this);
+            CreateEntity("test1", "none");
+            //}
+            //else
+            //{
+            //    Entity en = new Entity(153, 53, size, size, "test1", @"..\..\..\Resources\none.png", this);
+            //    CreateEntity("test1","");
+            //}
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -389,28 +389,28 @@ namespace DnD_Map_Maker
             }
         }
 
-        private void changeColorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ColorDialog cd = new ColorDialog();
-            if (cd.ShowDialog() == DialogResult.OK)
-            {
-                penColor = cd.Color;
-            }
-        }
+        //private void changeColorToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    ColorDialog cd = new ColorDialog();
+        //    if (cd.ShowDialog() == DialogResult.OK)
+        //    {
+        //        penColor = cd.Color;
+        //    }
+        //}
 
-        private void changeSizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string newSize = Microsoft.VisualBasic.Interaction.InputBox("Set new size for the pen", "Change size");
-            try
-            {
-                drawSize = int.Parse(newSize);
-            }
-            catch
-            {
+        //private void changeSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    string newSize = Microsoft.VisualBasic.Interaction.InputBox("Set new size for the pen", "Change size");
+        //    try
+        //    {
+        //        drawSize = int.Parse(newSize);
+        //    }
+        //    catch
+        //    {
 
-                MessageBox.Show("Please enter a valid Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        //        MessageBox.Show("Please enter a valid Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
 
         private void EraserButton_Click(object sender, EventArgs e)
         {
@@ -526,113 +526,81 @@ namespace DnD_Map_Maker
 
         private void enemy3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Enemy3", @"Resources\Presets\Enemy3.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Enemy3", "Enemy3");
         }
 
         private void enemy4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Enemy4", @"Resources\Presets\Enemy4.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Enemy4", "Enemy4");
         }
 
         private void enemy5ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Enemy5", @"Resources\Presets\Basic Bad Bitch.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Enemy5", "Basic Bad Bitch");
         }
 
         private void boss1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Boss1", @"Resources\Presets\Boss1.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Boss1", "Boss1");
         }
 
         private void boss2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Boss2", @"Resources\Presets\Boss2.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Boss2", "Boss2");
         }
 
         private void dragonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Dragon", @"Resources\Presets\Rawwwww.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Dragon", "Rawwwww");
         }
 
         private void door1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Door1", @"Resources\Presets\Door.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Door1", "Door");
         }
 
         private void dorr2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Door2", @"Resources\Presets\You expectet a Joke, but it was me Dio.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Door2", "You expectet a Joke, but it was me Dio");
         }
 
         private void stairsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Stairs", @"Resources\Presets\Stairs.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Stairs", "Stairs");
         }
 
         private void bonfireToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Bonfire", @"Resources\Presets\Take a rest.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Bonfire", "Take a rest");
         }
 
         private void wellToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Well", @"Resources\Presets\Get Wel soon.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Well", "Get Wel soon");
         }
 
         private void johanToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Balanced", @"Resources\Presets\b in Hans steht für balanced.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Balanced", "b in Hans steht für balanced");
         }
 
         private void customToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Entity en = new(153, 53, size, size, "Basic Bitch", @"Resources\Presets\Basic Bitch.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Basic Bitch", "Basic Bitch");
         }
 
         private void vogelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Vogel", @"Resources\Presets\Daniel and Dragons.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Vogel", "Daniel and Dragons");
         }
 
         private void gayToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "Gay", @"Resources\Presets\Its ya boy.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("Gay", "Its ya boy");
         }
         private void balanced2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Entity en = new Entity(153, 53, size, size, "BalancedTheSequel", @"Resources\Presets\b_in_Hans_steht_fur_balanced.png", this);
-            Controls.Add(en);
-            entities.Add(en);
+            CreateEntity("BalancedTheSequel", "b_in_Hans_steht_fur_balanced");
         }
 
         #endregion
@@ -645,6 +613,7 @@ namespace DnD_Map_Maker
                 ShowTurnOrder.BackColor = MenuPanel.BackColor;
                 TurnOrder.Visible = false;
                 TurnOrder.Enabled = false;
+                SortButton.Visible = false;
             }
             else
             {
@@ -652,17 +621,39 @@ namespace DnD_Map_Maker
                 ShowTurnOrder.BackColor = Color.LightGray;
                 TurnOrder.Visible = true;
                 TurnOrder.Enabled = true;
+                SortButton.Visible = true;
+                SortButton.BringToFront();
+                SortButton.Location = new Point(Width - 80, Height - 121);
             }
         }
 
         public void SortTurnOrder()
         {
             entities = entities.OrderBy(o => o.PositionInTurnOrder).ToList();
+
             TurnOrder.Items.Clear();
-            for (int i = 0; i < entities.Count; i++)
+
+            if (!AscendingSort)
             {
-                TurnOrder.Items.Add($"{entities[i].PositionInTurnOrder} {entities[i].label.Text}");
+                for (int i = 0; i < entities.Count; i++)
+                {
+                    if (entities[i].InTurnOrder)
+                    {
+                        TurnOrder.Items.Add($"{entities[i].PositionInTurnOrder} {entities[i].label.Text}");
+                    }
+                }
             }
+            else
+            {
+                for (int i = entities.Count; i > 0; i--)
+                {
+                    if (entities[i - 1].InTurnOrder)
+                    {
+                        TurnOrder.Items.Add($"{entities[i - 1].PositionInTurnOrder} {entities[i - 1].label.Text}");
+                    }
+                }
+            }
+
         }
 
         public void CreateEntity(string name, string filename)
@@ -670,6 +661,28 @@ namespace DnD_Map_Maker
             Entity en = new Entity(153, 53, size, size, name, @$"Resources\Presets\{filename}.png", this);
             Controls.Add(en);
             entities.Add(en);
+            SortTurnOrder();
+        }
+
+        public void CreateEntity(Entity en)
+        {
+            Controls.Add(en);
+            entities.Add(en);
+            SortTurnOrder();
+        }
+
+        private void iconButton1_Click_1(object sender, EventArgs e)
+        {
+            if (AscendingSort)
+            {
+                SortButton.IconChar = FontAwesome.Sharp.IconChar.SortDown;
+                AscendingSort = false;
+            }
+            else
+            {
+                SortButton.IconChar = FontAwesome.Sharp.IconChar.SortUp;
+                AscendingSort = true;
+            }
             SortTurnOrder();
         }
     }

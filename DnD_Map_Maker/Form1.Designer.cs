@@ -91,6 +91,7 @@
             this.wellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.johanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.balanced2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.vogelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,10 +100,10 @@
             this.PenTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.EraserTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.TurnOrderTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.SortButton = new FontAwesome.Sharp.IconButton();
             this.DrawContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.changeColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.balanced2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.EntityContextMenu.SuspendLayout();
@@ -381,12 +382,12 @@
             this.otherToolStripMenuItem,
             this.customToolStripMenuItem});
             this.AddEntityContextMenu.Name = "contextMenuStrip1";
-            this.AddEntityContextMenu.Size = new System.Drawing.Size(181, 186);
+            this.AddEntityContextMenu.Size = new System.Drawing.Size(152, 164);
             // 
             // newToolStripMenuItem1
             // 
             this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
-            this.newToolStripMenuItem1.Size = new System.Drawing.Size(180, 32);
+            this.newToolStripMenuItem1.Size = new System.Drawing.Size(151, 32);
             this.newToolStripMenuItem1.Text = "New";
             this.newToolStripMenuItem1.Click += new System.EventHandler(this.newToolStripMenuItem1_Click);
             // 
@@ -406,7 +407,7 @@
             this.warlockToolStripMenuItem,
             this.wizardToolStripMenuItem});
             this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
-            this.playerToolStripMenuItem.Size = new System.Drawing.Size(180, 32);
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(151, 32);
             this.playerToolStripMenuItem.Text = "Player";
             // 
             // paladinToolStripMenuItem
@@ -518,7 +519,7 @@
             this.boss2ToolStripMenuItem,
             this.dragonToolStripMenuItem});
             this.enemyToolStripMenuItem.Name = "enemyToolStripMenuItem";
-            this.enemyToolStripMenuItem.Size = new System.Drawing.Size(180, 32);
+            this.enemyToolStripMenuItem.Size = new System.Drawing.Size(151, 32);
             this.enemyToolStripMenuItem.Text = "Enemy";
             // 
             // enemy1ToolStripMenuItem
@@ -594,7 +595,7 @@
             this.bonfireToolStripMenuItem,
             this.wellToolStripMenuItem});
             this.otherToolStripMenuItem.Name = "otherToolStripMenuItem";
-            this.otherToolStripMenuItem.Size = new System.Drawing.Size(180, 32);
+            this.otherToolStripMenuItem.Size = new System.Drawing.Size(151, 32);
             this.otherToolStripMenuItem.Text = "Other";
             // 
             // door1ToolStripMenuItem
@@ -646,22 +647,30 @@
             this.vogelToolStripMenuItem,
             this.gayToolStripMenuItem});
             this.customToolStripMenuItem.Name = "customToolStripMenuItem";
-            this.customToolStripMenuItem.Size = new System.Drawing.Size(180, 32);
+            this.customToolStripMenuItem.Size = new System.Drawing.Size(151, 32);
             this.customToolStripMenuItem.Text = "Custom";
             // 
             // johanToolStripMenuItem
             // 
             this.johanToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.b_in_Hans_steht_für_balanced;
             this.johanToolStripMenuItem.Name = "johanToolStripMenuItem";
-            this.johanToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.johanToolStripMenuItem.Size = new System.Drawing.Size(199, 46);
             this.johanToolStripMenuItem.Text = "Balanced";
             this.johanToolStripMenuItem.Click += new System.EventHandler(this.johanToolStripMenuItem_Click);
+            // 
+            // balanced2ToolStripMenuItem
+            // 
+            this.balanced2ToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.b_in_Hans_steht_fur_balanced;
+            this.balanced2ToolStripMenuItem.Name = "balanced2ToolStripMenuItem";
+            this.balanced2ToolStripMenuItem.Size = new System.Drawing.Size(199, 46);
+            this.balanced2ToolStripMenuItem.Text = "Balanced2";
+            this.balanced2ToolStripMenuItem.Click += new System.EventHandler(this.balanced2ToolStripMenuItem_Click);
             // 
             // customToolStripMenuItem1
             // 
             this.customToolStripMenuItem1.Image = global::DnD_Map_Maker.Properties.Resources.Basic_Bitch;
             this.customToolStripMenuItem1.Name = "customToolStripMenuItem1";
-            this.customToolStripMenuItem1.Size = new System.Drawing.Size(204, 46);
+            this.customToolStripMenuItem1.Size = new System.Drawing.Size(199, 46);
             this.customToolStripMenuItem1.Text = "Basic Bitch";
             this.customToolStripMenuItem1.Click += new System.EventHandler(this.customToolStripMenuItem1_Click);
             // 
@@ -669,7 +678,7 @@
             // 
             this.vogelToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Daniel_and_Dragons;
             this.vogelToolStripMenuItem.Name = "vogelToolStripMenuItem";
-            this.vogelToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.vogelToolStripMenuItem.Size = new System.Drawing.Size(199, 46);
             this.vogelToolStripMenuItem.Text = "Vogel";
             this.vogelToolStripMenuItem.Click += new System.EventHandler(this.vogelToolStripMenuItem_Click);
             // 
@@ -677,7 +686,7 @@
             // 
             this.gayToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.Its_ya_boy;
             this.gayToolStripMenuItem.Name = "gayToolStripMenuItem";
-            this.gayToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
+            this.gayToolStripMenuItem.Size = new System.Drawing.Size(199, 46);
             this.gayToolStripMenuItem.Text = "Gay";
             this.gayToolStripMenuItem.Click += new System.EventHandler(this.gayToolStripMenuItem_Click);
             // 
@@ -692,7 +701,6 @@
             this.TurnOrder.Location = new System.Drawing.Point(881, 24);
             this.TurnOrder.Name = "TurnOrder";
             this.TurnOrder.Size = new System.Drawing.Size(210, 613);
-            this.TurnOrder.Sorted = true;
             this.TurnOrder.TabIndex = 4;
             this.TurnOrder.Visible = false;
             // 
@@ -712,6 +720,25 @@
             // 
             this.TurnOrderTooltip.ToolTipTitle = "Turn Order";
             // 
+            // SortButton
+            // 
+            this.SortButton.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.SortButton.FlatAppearance.BorderSize = 0;
+            this.SortButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SortButton.IconChar = FontAwesome.Sharp.IconChar.SortUp;
+            this.SortButton.IconColor = System.Drawing.Color.Black;
+            this.SortButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.SortButton.IconSize = 50;
+            this.SortButton.Location = new System.Drawing.Point(1025, 573);
+            this.SortButton.Name = "SortButton";
+            this.SortButton.Padding = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.SortButton.Size = new System.Drawing.Size(54, 52);
+            this.SortButton.TabIndex = 6;
+            this.TurnOrderTooltip.SetToolTip(this.SortButton, "Shows the turn order when active");
+            this.SortButton.UseVisualStyleBackColor = false;
+            this.SortButton.Visible = false;
+            this.SortButton.Click += new System.EventHandler(this.iconButton1_Click_1);
+            // 
             // DrawContextMenu
             // 
             this.DrawContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -725,22 +752,12 @@
             this.changeColorToolStripMenuItem.Name = "changeColorToolStripMenuItem";
             this.changeColorToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.changeColorToolStripMenuItem.Text = "Change color";
-            this.changeColorToolStripMenuItem.Click += new System.EventHandler(this.changeColorToolStripMenuItem_Click);
             // 
             // changeSizeToolStripMenuItem
             // 
             this.changeSizeToolStripMenuItem.Name = "changeSizeToolStripMenuItem";
             this.changeSizeToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.changeSizeToolStripMenuItem.Text = "Change size";
-            this.changeSizeToolStripMenuItem.Click += new System.EventHandler(this.changeSizeToolStripMenuItem_Click);
-            // 
-            // balanced2ToolStripMenuItem
-            // 
-            this.balanced2ToolStripMenuItem.Image = global::DnD_Map_Maker.Properties.Resources.b_in_Hans_steht_fur_balanced;
-            this.balanced2ToolStripMenuItem.Name = "balanced2ToolStripMenuItem";
-            this.balanced2ToolStripMenuItem.Size = new System.Drawing.Size(204, 46);
-            this.balanced2ToolStripMenuItem.Text = "Balanced2";
-            this.balanced2ToolStripMenuItem.Click += new System.EventHandler(this.balanced2ToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -748,6 +765,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1091, 637);
+            this.Controls.Add(this.SortButton);
             this.Controls.Add(this.TurnOrder);
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.menuStrip1);
@@ -844,5 +862,6 @@
         private ToolStripMenuItem changeColorToolStripMenuItem;
         private ToolStripMenuItem changeSizeToolStripMenuItem;
         private ToolStripMenuItem balanced2ToolStripMenuItem;
+        private FontAwesome.Sharp.IconButton SortButton;
     }
 }

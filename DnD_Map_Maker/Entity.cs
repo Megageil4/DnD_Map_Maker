@@ -13,6 +13,7 @@ namespace DnD_Map_Maker
         private MainForm m;
         public Label label = new Label();
         private string imagePath = "";
+        public bool InTurnOrder { get; set; } = true;
         public int PositionInTurnOrder { get; set; }
         public Entity(int x, int y, int width, int height, string name, string imgPath, MainForm mainForm, int posInTurnOrder = 0)
         {
@@ -34,6 +35,7 @@ namespace DnD_Map_Maker
             this.ContextMenuStrip.Items.Add("Show Name", null, ContextMenu_ShowName);
             this.ContextMenuStrip.Items.Add("Set Name", null, ContextMenu_SetName);
             this.ContextMenuStrip.Items.Add("Set Turn Order", null, ContextMenu_SetTurnPos);
+            this.ContextMenuStrip.Items.Add("Hide in Turn Order", null, ContextMenu_TurnOrderVisibility);
             this.ContextMenuStrip.Items.Add("Set Icon", null, ContextMenu_File);
             this.ContextMenuStrip.Items.Add("Set size", null, ContextMenu_SetSize);
             this.ContextMenuStrip.Items.Add("Dublicate", null, ContextMenu_Dublicate);
@@ -48,6 +50,7 @@ namespace DnD_Map_Maker
             PositionInTurnOrder = posInTurnOrder;
 
             mainForm.TurnOrder.Items.Add($"{PositionInTurnOrder} {name}");
+            mainForm.SortTurnOrder();
         }
 
         private void ContextMenu_ShowName(object? sender, EventArgs e)
@@ -70,6 +73,7 @@ namespace DnD_Map_Maker
         {
             string newEntityName = Microsoft.VisualBasic.Interaction.InputBox("Set new name for entity", "New name");
             label.Text = newEntityName;
+            m.SortTurnOrder();
         }
         private void ContextMenu_SetTurnPos(object? sender, EventArgs e)
         {
@@ -85,7 +89,9 @@ namespace DnD_Map_Maker
 
                 MessageBox.Show("Please enter a valid Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            m.TurnOrder.Items.Add($"{PositionInTurnOrder} {label.Text}");
+            //m.TurnOrder.Items.Add($"{PositionInTurnOrder} {label.Text}");
+
+            m.SortTurnOrder();
         }
 
         private void ContextMenu_File(object? sender, EventArgs e)
@@ -105,10 +111,8 @@ namespace DnD_Map_Maker
             string newSize = Microsoft.VisualBasic.Interaction.InputBox("Set new size for entity", "Size");
             try
             {
-                Width = Width + m.penSize * 3;
-                Height = Height + m.penSize * 3;
-                Width = Width * int.Parse(newSize) - m.penSize * 3;
-                Height = Height * int.Parse(newSize) - m.penSize * 3;
+                Width = m.size * int.Parse(newSize) - m.penSize * 3;
+                Height = m.size * int.Parse(newSize) - m.penSize * 3;
             }
             catch
             {
@@ -119,9 +123,9 @@ namespace DnD_Map_Maker
         private void ContextMenu_Dublicate(object? sender, EventArgs e)
         {
             Entity newEntity = new Entity(Location.X, Location.Y, m.size, m.size, label.Text, imagePath, m, PositionInTurnOrder);
-            m.Controls.Add(newEntity);
-            m.entities.Add(this);
-
+            //m.Controls.Add(newEntity);
+            //m.entities.Add(this);
+            m.CreateEntity(newEntity);
         }
         private void ContextMenu_Delete(object? sender, EventArgs e)
         {
@@ -129,6 +133,22 @@ namespace DnD_Map_Maker
             m.Controls.Remove(this);
             m.entities.Remove(this);
             m.TurnOrder.Items.Remove($"{PositionInTurnOrder} {label.Text}");
+            m.SortTurnOrder();
+        }
+
+        private void ContextMenu_TurnOrderVisibility(object? sender, EventArgs e)
+        {
+            if (ContextMenuStrip.Items[3].Text == "Hide in Turn Order")
+            {
+                InTurnOrder = false;
+                ContextMenuStrip.Items[3].Text = "Show in Turn Order";
+            }
+            else
+            {
+                InTurnOrder = true;
+                ContextMenuStrip.Items[3].Text = "Hide in Turn Order";
+            }
+            m.SortTurnOrder();
         }
 
         private void MouseDownHandler(object? sender, MouseEventArgs e)
